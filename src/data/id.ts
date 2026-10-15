@@ -65,59 +65,48 @@ const developer = {
 
 export const idTechStack: TechStack[] = [
   {
-    category: 'CORE LANGUAGES',
+    category: 'Frontend',
     skills: [
+      { name: 'React', level: 'Mahir' },
       { name: 'TypeScript', level: 'Menengah' },
-      { name: 'JavaScript', level: 'Mahir' },
-      { name: 'PHP', level: 'Menengah' },
-      { name: 'HTML5', level: 'Mahir' },
-      { name: 'CSS3', level: 'Mahir' },
-      { name: 'SQL', level: 'Menengah' },
-    ],
-  },
-  {
-    category: 'PRIMARY FRAMEWORKS',
-    skills: [
-      { name: 'Next.js', level: 'Mahir' },
-      { name: 'Node.js', level: 'Mahir' },
-      { name: 'React.js', level: 'Mahir' },
-      { name: 'Express.js', level: 'Mahir' },
-    ],
-  },
-  {
-    category: 'STYLING & UI ARCHITECTURE',
-    skills: [
       { name: 'Tailwind CSS', level: 'Mahir' },
-      { name: 'Responsive Grid', level: 'Mahir' },
-      { name: 'Semantic HTML', level: 'Mahir' },
-      { name: 'Component Modularity', level: 'Mahir' },
+      { name: 'Bootstrap', level: 'Mahir' },
     ],
   },
   {
-    category: 'DATABASES & ORM',
+    category: 'Mobile',
     skills: [
-      { name: 'Supabase', level: 'Menengah' },
+      { name: 'Kotlin', level: 'Menengah' },
+      { name: 'Dart', level: 'Menengah' },
+    ],
+  },
+  {
+    category: 'Backend & Database',
+    skills: [
+      { name: 'Node.js', level: 'Mahir' },
+      { name: 'Next.js', level: 'Mahir' },
+      { name: 'PHP', level: 'Menengah' },
       { name: 'MySQL', level: 'Mahir' },
-      { name: 'PostgreSQL', level: 'Menengah' },
-      { name: 'Relational Schemas', level: 'Menengah' },
+      { name: 'Supabase', level: 'Menengah' },
     ],
   },
   {
-    category: 'TOOLS & DEPLOYMENT',
+    category: 'IoT & Embedded',
     skills: [
-      { name: 'Git & GitHub', level: 'Mahir' },
-      { name: 'Vite', level: 'Mahir' },
-      { name: 'Vercel Platform', level: 'Mahir' },
-      { name: 'Postman API Testing', level: 'Menengah' },
+      { name: 'ESP32', level: 'Menengah' },
+      { name: 'PlatformIO', level: 'Menengah' },
+      { name: 'C++', level: 'Menengah' },
     ],
   },
   {
-    category: 'SPECIALIZED FOCUS',
+    category: 'Tools & Dev',
     skills: [
-      { name: 'Web Recapitulation Systems', level: 'Mahir' },
-      { name: 'Interactive QR Code Workflows', level: 'Mahir' },
-      { name: 'Real-time Live Scoreboards', level: 'Mahir' },
-      { name: 'RESTful API Integration', level: 'Mahir' },
+      { name: 'Git', level: 'Mahir' },
+      { name: 'Postman', level: 'Menengah' },
+      { name: 'Android Studio', level: 'Menengah' },
+      { name: '9Router', level: 'Mahir' },
+      { name: 'Antigravity', level: 'Mahir' },
+      { name: 'VS Code', level: 'Mahir' },
     ],
   },
 ];

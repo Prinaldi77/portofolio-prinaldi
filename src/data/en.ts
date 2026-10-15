@@ -65,59 +65,48 @@ const developer = {
 
 export const enTechStack: TechStack[] = [
   {
-    category: 'CORE LANGUAGES',
+    category: 'Frontend',
     skills: [
+      { name: 'React', level: 'Advanced' },
       { name: 'TypeScript', level: 'Intermediate' },
-      { name: 'JavaScript', level: 'Advanced' },
-      { name: 'PHP', level: 'Intermediate' },
-      { name: 'HTML5', level: 'Advanced' },
-      { name: 'CSS3', level: 'Advanced' },
-      { name: 'SQL', level: 'Intermediate' },
-    ],
-  },
-  {
-    category: 'PRIMARY FRAMEWORKS',
-    skills: [
-      { name: 'Next.js', level: 'Advanced' },
-      { name: 'Node.js', level: 'Advanced' },
-      { name: 'React.js', level: 'Advanced' },
-      { name: 'Express.js', level: 'Advanced' },
-    ],
-  },
-  {
-    category: 'STYLING & UI ARCHITECTURE',
-    skills: [
       { name: 'Tailwind CSS', level: 'Advanced' },
-      { name: 'Responsive Grid', level: 'Advanced' },
-      { name: 'Semantic HTML', level: 'Advanced' },
-      { name: 'Component Modularity', level: 'Advanced' },
+      { name: 'Bootstrap', level: 'Advanced' },
     ],
   },
   {
-    category: 'DATABASES & ORM',
+    category: 'Mobile',
     skills: [
-      { name: 'Supabase', level: 'Intermediate' },
+      { name: 'Kotlin', level: 'Intermediate' },
+      { name: 'Dart', level: 'Intermediate' },
+    ],
+  },
+  {
+    category: 'Backend & Database',
+    skills: [
+      { name: 'Node.js', level: 'Advanced' },
+      { name: 'Next.js', level: 'Advanced' },
+      { name: 'PHP', level: 'Intermediate' },
       { name: 'MySQL', level: 'Advanced' },
-      { name: 'PostgreSQL', level: 'Intermediate' },
-      { name: 'Relational Schemas', level: 'Intermediate' },
+      { name: 'Supabase', level: 'Intermediate' },
     ],
   },
   {
-    category: 'TOOLS & DEPLOYMENT',
+    category: 'IoT & Embedded',
     skills: [
-      { name: 'Git & GitHub', level: 'Advanced' },
-      { name: 'Vite', level: 'Advanced' },
-      { name: 'Vercel Platform', level: 'Advanced' },
-      { name: 'Postman API Testing', level: 'Intermediate' },
+      { name: 'ESP32', level: 'Intermediate' },
+      { name: 'PlatformIO', level: 'Intermediate' },
+      { name: 'C++', level: 'Intermediate' },
     ],
   },
   {
-    category: 'SPECIALIZED FOCUS',
+    category: 'Tools & Dev',
     skills: [
-      { name: 'Web Recapitulation Systems', level: 'Advanced' },
-      { name: 'Interactive QR Code Workflows', level: 'Advanced' },
-      { name: 'Real-time Live Scoreboards', level: 'Advanced' },
-      { name: 'RESTful API Integration', level: 'Advanced' },
+      { name: 'Git', level: 'Advanced' },
+      { name: 'Postman', level: 'Intermediate' },
+      { name: 'Android Studio', level: 'Intermediate' },
+      { name: '9Router', level: 'Advanced' },
+      { name: 'Antigravity', level: 'Advanced' },
+      { name: 'VS Code', level: 'Advanced' },
     ],
   },
 ];
