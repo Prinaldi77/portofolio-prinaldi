@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background-color: #FFFFFF;
+    color: #000000;
+    line-height: 1.63;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    margin: 0;
+  }
+  html.dark body {
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+  }
+}
+
+.portfolio-container {
+  width: min(1160px, calc(100% - 36px));
+  margin-inline: auto;
+}
+
+@media (min-width: 641px) {
+  .portfolio-container {
+    width: min(1160px, calc(100% - 44px));
+  }
+}
+
+.portfolio-section {
+  padding-top: 36px;
+  padding-bottom: 32px;
+  padding-inline: 2px;
+}
+
+@media (min-width: 641px) {
+  .portfolio-section {
+    padding-top: 45px;
+    padding-bottom: 45px;
+    padding-inline: 0;
+  }
+}
+
+.hero-title {
+  font-size: clamp(1.5rem, 3.1vw, 2.25rem);
+  max-width: 100%;
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 36px;
+  }
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3.1vw, 2rem);
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 32px;
+  }
+}
+
+.header-to-content {
+  margin-bottom: 32px;
+}
+
+@media (min-width: 641px) {
+  .header-to-content {
+    margin-bottom: clamp(34px, 5vw, 50px);
+  }
+}
+
+.card-padding {
+  padding: 19px 16px;
+}
+
+@media (min-width: 641px) {
+  .card-padding {
+    padding: 22px 20px 18px;
+  }
+}
+
+.card-grid-gap {
+  gap: 8px;
+}
+
+@media (min-width: 641px) {
+  .card-grid-gap {
+    gap: 10px;
+  }
+}

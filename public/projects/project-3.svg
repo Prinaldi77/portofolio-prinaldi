@@ -1,0 +1,33 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" rx="12" fill="#18181B"/>
+  <rect x="24" y="24" width="752" height="40" rx="8" fill="#27272A"/>
+  <circle cx="50" cy="44" r="6" fill="#EF4444"/>
+  <circle cx="70" cy="44" r="6" fill="#F59E0B"/>
+  <circle cx="90" cy="44" r="6" fill="#10B981"/>
+
+  <!-- E-commerce items grid -->
+  <rect x="24" y="80" width="170" height="160" rx="8" fill="#27272A"/>
+  <rect x="36" y="92" width="146" height="90" rx="4" fill="#3F3F46"/>
+  <rect x="36" y="194" width="90" height="12" rx="3" fill="#A1A1AA"/>
+  <rect x="36" y="214" width="50" height="12" rx="3" fill="#10B981"/>
+
+  <rect x="218" y="80" width="170" height="160" rx="8" fill="#27272A"/>
+  <rect x="230" y="92" width="146" height="90" rx="4" fill="#3F3F46"/>
+  <rect x="230" y="194" width="90" height="12" rx="3" fill="#A1A1AA"/>
+  <rect x="230" y="214" width="50" height="12" rx="3" fill="#10B981"/>
+
+  <rect x="412" y="80" width="170" height="160" rx="8" fill="#27272A"/>
+  <rect x="424" y="92" width="146" height="90" rx="4" fill="#3F3F46"/>
+  <rect x="424" y="194" width="90" height="12" rx="3" fill="#A1A1AA"/>
+  <rect x="424" y="214" width="50" height="12" rx="3" fill="#10B981"/>
+
+  <rect x="606" y="80" width="170" height="160" rx="8" fill="#27272A"/>
+  <rect x="618" y="92" width="146" height="90" rx="4" fill="#3F3F46"/>
+  <rect x="618" y="194" width="90" height="12" rx="3" fill="#A1A1AA"/>
+  <rect x="618" y="214" width="50" height="12" rx="3" fill="#10B981"/>
+
+  <rect x="24" y="260" width="752" height="166" rx="8" fill="#27272A"/>
+  <rect x="48" y="284" width="200" height="18" rx="4" fill="#A1A1AA"/>
+  <rect x="48" y="320" width="400" height="12" rx="3" fill="#52525B"/>
+  <rect x="48" y="344" width="340" height="12" rx="3" fill="#52525B"/>
+</svg>
