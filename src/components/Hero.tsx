@@ -61,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ personalInfo, profile }) => {
         {/* 3. Sub-Heading: Penjelasan Peran Nyata & Institusi */}
         <div className="max-w-2xl mx-auto mb-10">
           <p className="text-base sm:text-lg md:text-xl font-medium text-neutral-800 dark:text-neutral-300 leading-relaxed transition-colors">
-            {role} & {major} at {university}. Focused on engineering robust, structured web systems with Next.js, Node.js, and TypeScript.
+            {data?.tagline || `${role} & ${major} at ${university}. Focused on engineering functional web systems with Next.js, Node.js, and Supabase.`}
           </p>
         </div>
 
