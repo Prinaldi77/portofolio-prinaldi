@@ -25,12 +25,47 @@ export const Contact: React.FC<ContactProps> = ({
 }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
+
+    setIsLoading(true);
+    setErrorMessage('');
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '9dfcd8d1-4ae9-4461-b02d-9a98b48bff75';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `Pesan Baru Portofolio dari ${formData.name}`,
+          from_name: `${formData.name} via Portfolio`,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setErrorMessage(result.message || 'Gagal mengirim pesan. Silakan coba lagi.');
+      }
+    } catch {
+      setErrorMessage('Terjadi kendala jaringan. Silakan hubungi langsung ke email saya.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -156,12 +191,28 @@ export const Contact: React.FC<ContactProps> = ({
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div className="p-3 rounded-xl bg-red-950/60 border border-red-800 text-red-200 text-xs font-medium">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center gap-[7px] px-6 py-3 rounded-full text-sm font-bold text-white bg-[#610000] hover:bg-[#4E0000] transition-colors shadow-soft"
+                    disabled={isLoading}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white bg-neutral-900 hover:bg-neutral-800 disabled:opacity-60 border border-neutral-700 transition-colors shadow-soft"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>{labels.formSubmitButton}</span>
+                    {isLoading ? (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Mengirim pesan...</span>
+                      </span>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>{labels.formSubmitButton}</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}

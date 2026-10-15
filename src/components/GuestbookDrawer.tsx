@@ -40,6 +40,7 @@ interface GuestbookDrawerProps {
 
 interface AuthUser {
   name: string;
+  handle?: string;
   email?: string;
   avatar?: string;
   provider: 'github' | 'google';
@@ -88,15 +89,70 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     };
   }, [isOpen]);
 
-  // Sync Supabase Auth session if configured
+  // Fetch real entries from Supabase
+  const fetchEntries = async () => {
+    if (!isSupabaseConfigured) return;
+    try {
+      const { data: dbEntries, error } = await supabase
+        .from('guestbook_entries')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('Error loading guestbook:', error);
+        return;
+      }
+
+      if (dbEntries) {
+        const mapped: GuestbookEntry[] = dbEntries.map((item) => {
+          const d = new Date(item.created_at);
+          const formattedDate = `${d.getDate()} ${d.toLocaleString('default', {
+            month: 'short',
+          })} ${d.getFullYear()}, ${d.getHours().toString().padStart(2, '0')}:${d
+            .getMinutes()
+            .toString()
+            .padStart(2, '0')}`;
+          return {
+            id: item.id,
+            name: item.name,
+            handle: item.handle || undefined,
+            avatar:
+              item.avatar_url ||
+              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+            provider: 'github',
+            date: formattedDate,
+            message: item.message,
+          };
+        });
+        setEntries(mapped);
+      }
+    } catch (err) {
+      console.warn('Failed to fetch guestbook:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchEntries();
+    }
+  }, [isOpen]);
+
+  // Sync Supabase Auth session
   useEffect(() => {
     if (!isSupabaseConfigured) return;
 
     supabase.auth.getSession().then(({ data: sessionData }) => {
       const user = sessionData?.session?.user;
       if (user) {
+        const ghHandle = user.user_metadata?.user_name
+          ? `@${user.user_metadata.user_name}`
+          : user.user_metadata?.preferred_username
+          ? `@${user.user_metadata.preferred_username}`
+          : undefined;
+
         setCurrentUser({
-          name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+          name: user.user_metadata?.full_name || user.user_metadata?.user_name || user.email?.split('@')[0] || 'Developer',
+          handle: ghHandle,
           email: user.email,
           avatar: user.user_metadata?.avatar_url,
           provider: (user.app_metadata?.provider as 'github' | 'google') || 'github',
@@ -107,8 +163,15 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       const user = session?.user;
       if (user) {
+        const ghHandle = user.user_metadata?.user_name
+          ? `@${user.user_metadata.user_name}`
+          : user.user_metadata?.preferred_username
+          ? `@${user.user_metadata.preferred_username}`
+          : undefined;
+
         setCurrentUser({
-          name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+          name: user.user_metadata?.full_name || user.user_metadata?.user_name || user.email?.split('@')[0] || 'Developer',
+          handle: ghHandle,
           email: user.email,
           avatar: user.user_metadata?.avatar_url,
           provider: (user.app_metadata?.provider as 'github' | 'google') || 'github',
@@ -190,18 +253,21 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
         await supabase.from('guestbook_entries').insert([
           {
             name: newEntry.name,
+            handle: newEntry.handle,
             message: newEntry.message,
             avatar_url: newEntry.avatar,
             created_at: new Date().toISOString(),
           },
         ]);
+        await fetchEntries();
       } catch (err) {
         console.warn('Supabase insert note, maintaining local list:', err);
+        setEntries([newEntry, ...entries]);
       }
+    } else {
+      setEntries([newEntry, ...entries]);
     }
 
-    // Instant local state update
-    setEntries([newEntry, ...entries]);
     setInputMessage('');
     setIsSubmitting(false);
     setFeedbackSuccess(true);
@@ -268,33 +334,24 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
               <p className="text-[11px] font-mono font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider mb-2.5">
                 {isId ? 'Masuk untuk menulis pesan di buku tamu:' : 'Sign in to sign the guestbook:'}
               </p>
-              {/* Tombol Pilihan Login: GitHub & Google */}
-              <div className="grid grid-cols-2 gap-2">
+              {/* Tombol Pilihan Login: GitHub */}
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => handleSocialSignIn('github')}
-                  className="inline-flex items-center justify-center gap-2 py-2 px-3 rounded-full text-xs font-mono font-bold bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 border border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white hover:scale-102 transition-all cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-mono font-bold bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 border border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white transition-all cursor-pointer"
                 >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                     <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
-                  <span>Sign in with GitHub</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleSocialSignIn('google')}
-                  className="inline-flex items-center justify-center gap-2 py-2 px-3 rounded-full text-xs font-mono font-bold bg-white dark:bg-neutral-950 text-black dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 border border-black dark:border-neutral-700 shadow-hard-sm dark:shadow-hard-sm-white hover:scale-102 transition-all cursor-pointer"
-                >
-                  <span className="font-black text-rose-500">G</span>
-                  <span>Sign in with Google</span>
+                  <span>{isId ? 'Masuk dengan GitHub' : 'Sign in with GitHub'}</span>
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                 <span className="text-xs font-mono font-bold text-black dark:text-white">
                   {isId ? 'Sebagai:' : 'Signed in as:'} <span className="underline font-black">{currentUser.name}</span>
                 </span>
@@ -386,34 +443,48 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
             </div>
           )}
 
-          <form onSubmit={handleSubmitMessage} className="space-y-2">
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                required
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                placeholder={
-                  currentUser
-                    ? isId
-                      ? `Tulis pesan sebagai ${currentUser.name}...`
-                      : `Write a message as ${currentUser.name}...`
-                    : isId
-                    ? 'Tulis pesan singkat Anda...'
-                    : 'Write a note or feedback...'
-                }
-                className="flex-1 px-4 py-2.5 text-xs font-mono rounded-full border border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-colors"
-              />
+          {!currentUser ? (
+            <div className="flex items-center justify-between p-3 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800">
+              <span className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
+                {isId ? 'Masuk dengan GitHub untuk menulis pesan:' : 'Sign in with GitHub to write a note:'}
+              </span>
               <button
-                type="submit"
-                disabled={isSubmitting || !inputMessage.trim()}
-                className="px-5 py-2.5 bg-black dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:opacity-50 text-white dark:text-black text-xs font-mono font-bold rounded-full border border-black dark:border-white flex items-center gap-1.5 transition-all shadow-hard-sm dark:shadow-hard-sm-white cursor-pointer shrink-0"
+                type="button"
+                onClick={() => handleSocialSignIn('github')}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white shadow-hard-xs transition-colors cursor-pointer"
               >
-                <Send className="w-3.5 h-3.5" />
-                <span>{isId ? 'Kirim' : 'Post'}</span>
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+                <span>{isId ? 'Masuk' : 'Sign in'}</span>
               </button>
             </div>
-          </form>
+          ) : (
+            <form onSubmit={handleSubmitMessage} className="space-y-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  required
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  placeholder={
+                    isId
+                      ? `Tulis pesan sebagai ${currentUser.name}...`
+                      : `Write a message as ${currentUser.name}...`
+                  }
+                  className="flex-1 px-4 py-2.5 text-xs font-mono rounded-full border border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !inputMessage.trim()}
+                  className="px-5 py-2.5 bg-black dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:opacity-50 text-white dark:text-black text-xs font-mono font-bold rounded-full border border-black dark:border-white flex items-center gap-1.5 transition-all shadow-hard-sm dark:shadow-hard-sm-white cursor-pointer shrink-0"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{isId ? 'Kirim' : 'Post'}</span>
+                </button>
+              </div>
+            </form>
+          )}
 
           <p className="text-[10px] text-center text-neutral-500 dark:text-neutral-400 font-mono">
             {isId

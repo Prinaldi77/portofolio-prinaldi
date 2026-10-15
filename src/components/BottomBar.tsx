@@ -34,7 +34,7 @@ export const BottomBar: React.FC<BottomBarProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const statusText = currentLang === 'id' ? 'MENERIMA TAWARAN KERJA' : 'OPEN TO WORK';
+  const statusText = currentLang === 'id' ? 'Menerima tawaran kerja' : 'Open to work';
   const todayLabel = currentLang === 'id' ? 'HARI INI:' : 'TODAY:';
   const guestbookLabel = currentLang === 'id' ? 'Buku Tamu' : 'Guestbook';
 
@@ -47,7 +47,7 @@ export const BottomBar: React.FC<BottomBarProps> = ({
         {/* Maskot Siluet Mengintip di Sisi Kiri */}
         <div className="hidden sm:flex items-end gap-1 absolute -top-8 left-2 pointer-events-none">
           <div className="w-6 h-6 rounded-t-xl bg-black dark:bg-white flex items-center justify-center gap-1 shadow-md transition-colors">
-            <span className="w-1 h-1 rounded-full bg-white dark:bg-black animate-ping"></span>
+            <span className="w-1 h-1 rounded-full bg-white dark:bg-black"></span>
             <span className="w-1 h-1 rounded-full bg-white dark:bg-black"></span>
           </div>
           <div className="w-7 h-8 rounded-t-xl bg-black dark:bg-white flex items-center justify-center gap-1 shadow-md -mb-1 transition-colors">
@@ -56,13 +56,10 @@ export const BottomBar: React.FC<BottomBarProps> = ({
           </div>
         </div>
 
-        {/* Elemen Kiri: Status "OPEN TO WORK" dengan dot hijau berkedip */}
+        {/* Elemen Kiri: Status "Open to Work" dengan dot hijau solid */}
         <div className="flex items-center gap-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-          </span>
-          <span className="font-black text-black dark:text-white tracking-wider uppercase text-[11px] sm:text-xs transition-colors">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span className="font-bold text-black dark:text-white text-xs transition-colors">
             {statusText}
           </span>
         </div>

@@ -28,7 +28,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
         {/* Cute Peeking Black Mascots on Left */}
         <div className="hidden sm:flex items-end gap-1 absolute -top-8 left-2 pointer-events-none">
           <div className="w-6 h-6 rounded-t-xl bg-black flex items-center justify-center gap-1 shadow-md">
-            <span className="w-1 h-1 rounded-full bg-white animate-ping"></span>
+            <span className="w-1 h-1 rounded-full bg-white"></span>
             <span className="w-1 h-1 rounded-full bg-white"></span>
           </div>
           <div className="w-7 h-8 rounded-t-xl bg-black flex items-center justify-center gap-1 shadow-md -mb-1">
@@ -39,8 +39,8 @@ export const StatusBar: React.FC<StatusBarProps> = ({
 
         {/* Status: Available for Work */}
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="font-bold text-black uppercase tracking-wider text-[11px]">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span className="font-bold text-black text-[11px]">
             {personalInfo.statusText}
           </span>
         </div>

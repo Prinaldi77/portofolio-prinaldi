@@ -134,14 +134,14 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               <a
                 href={resumeUrl}
                 download
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 text-xs sm:text-sm font-mono font-black uppercase tracking-wider shadow-hard dark:shadow-hard-white active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 text-xs sm:text-sm font-bold shadow-hard dark:shadow-hard-white active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 <Download className="w-4 h-4" />
                 <span>{cvButtonText}</span>
               </a>
 
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-neutral-700 dark:text-neutral-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-neutral-700 dark:text-neutral-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 <span>{isId ? 'Terbuka untuk kesempatan kerja & proyek' : 'Open for web engineering roles'}</span>
               </div>
             </div>
@@ -150,13 +150,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           {/* ========================================================
               2. Card Foto Avatar (span 1 kolom): Frame Neo-Brutalist
              ======================================================== */}
-          <div className="col-span-1 md:col-span-1 border-2 border-black dark:border-neutral-700 rounded-3xl p-6 bg-white dark:bg-neutral-900 shadow-hard dark:shadow-hard-white flex flex-col justify-between relative overflow-hidden group transition-colors">
+          <div className="col-span-1 md:col-span-1 border-2 border-black dark:border-neutral-700 rounded-3xl p-6 bg-white dark:bg-neutral-900 shadow-hard dark:shadow-hard-white flex flex-col justify-between relative overflow-hidden transition-colors">
             {/* Clean Frame Avatar */}
             <div className="relative w-full aspect-square rounded-2xl border-2 border-black dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-950 overflow-hidden flex items-center justify-center mb-5">
               <img
                 src={photoUrl}
                 alt={name}
-                className="w-full h-full object-cover object-[50%_60%] relative z-10 transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover object-[50%_60%] relative z-10"
               />
             </div>
 

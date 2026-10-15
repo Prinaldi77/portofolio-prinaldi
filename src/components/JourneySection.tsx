@@ -111,7 +111,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({
                               className="mt-3 group inline-flex flex-col items-end text-right cursor-pointer"
                               title={isId ? 'Lihat Proyek Terkait' : 'View Projects'}
                             >
-                              <div className="w-16 h-12 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center border-2 border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white group-hover:scale-105 group-hover:-rotate-3 transition-transform">
+                              <div className="w-16 h-12 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center border-2 border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white group-hover:-translate-y-0.5 transition-transform">
                                 <Folder className="w-6 h-6 fill-current" />
                               </div>
                               <span className="text-xs font-mono font-black uppercase text-black dark:text-white mt-2 tracking-wider group-hover:underline">
@@ -177,7 +177,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({
                               className="mt-3 group inline-flex flex-col items-start text-left cursor-pointer"
                               title={isId ? 'Lihat Proyek Terkait' : 'View Projects'}
                             >
-                              <div className="w-16 h-12 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center border-2 border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white group-hover:scale-105 group-hover:rotate-3 transition-transform">
+                              <div className="w-16 h-12 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center border-2 border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white group-hover:-translate-y-0.5 transition-transform">
                                 <Folder className="w-6 h-6 fill-current" />
                               </div>
                               <span className="text-xs font-mono font-black uppercase text-black dark:text-white mt-2 tracking-wider group-hover:underline">

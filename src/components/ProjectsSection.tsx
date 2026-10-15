@@ -179,7 +179,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       <img
                         src={project.imageUrl}
                         alt={project.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover object-top"
                       />
                     </div>
                   </div>
