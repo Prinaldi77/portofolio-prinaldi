@@ -23,7 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ personalInfo, profile, currentLang =
     <section
       id="home"
       aria-label="Hero Section"
-      className="sticky top-16 sm:top-20 h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] z-0 overflow-hidden bg-white dark:bg-neutral-950 text-black dark:text-white flex flex-col justify-between px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-colors"
+      className="sticky top-20 h-[calc(100vh-5rem)] z-0 overflow-hidden bg-white dark:bg-neutral-950 text-black dark:text-white flex flex-col justify-between px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-colors"
     >
       {/* 1. Standard Section Header */}
       <div className="pt-2 sm:pt-4">
