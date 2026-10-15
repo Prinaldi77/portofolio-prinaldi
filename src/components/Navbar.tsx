@@ -58,8 +58,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2.5 group"
             aria-label="Muhamad Prinaldi Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white flex items-center justify-center font-black text-sm tracking-tighter shadow-hard-sm dark:shadow-hard-sm-white group-hover:-translate-y-0.5 transition-all">
-              <span>MP</span>
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-hard-sm dark:shadow-hard-sm-white group-hover:-translate-y-0.5 transition-all flex items-center justify-center">
+              <img
+                src="/assets/logo-badge-black.svg"
+                alt="Prinaldi Logo"
+                className="w-full h-full object-contain block dark:hidden"
+              />
+              <img
+                src="/assets/logo-badge-white.svg"
+                alt="Prinaldi Logo"
+                className="w-full h-full object-contain hidden dark:block"
+              />
             </div>
             <div className="hidden sm:block text-left leading-tight">
               <span className="block font-black text-sm text-black dark:text-white tracking-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
