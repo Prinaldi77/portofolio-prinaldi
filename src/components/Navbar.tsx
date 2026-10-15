@@ -45,7 +45,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: isId ? 'TENTANG' : 'ABOUT', href: '#about' },
     { label: isId ? 'KEAHLIAN' : 'SKILLS', href: '#skills' },
     { label: isId ? 'KARYA' : 'WORKS', href: '#projects' },
-    { label: isId ? 'PERJALANAN' : 'JOURNEY', href: '#journey' },
+    { label: isId ? 'PRESTASI' : 'AWARDS', href: '#awards' },
+    { label: isId ? 'SERTIFIKASI' : 'CERTS', href: '#certifications' },
+    { label: isId ? 'ORGANISASI' : 'ORG', href: '#organizations' },
     { label: isId ? 'BUKU TAMU' : 'GUESTBOOK', href: '#guestbook', isGuestbook: true },
     { label: isId ? 'KONTAK' : 'CONTACT', href: '#contact' },
   ];

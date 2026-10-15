@@ -1,4 +1,13 @@
-import type { PortfolioData, Profile, TechStack, JourneyItem, Project } from '../types/portfolio';
+import type {
+  PortfolioData,
+  Profile,
+  TechStack,
+  JourneyItem,
+  Project,
+  AwardItem,
+  CertificationItem,
+  OrganizationItem,
+} from '../types/portfolio';
 
 export const enProfile: Profile = {
   name: 'MUHAMAD PRINALDI',
@@ -218,6 +227,115 @@ export const enProjects: Project[] = [
   },
 ];
 
+export const enAwards: AwardItem[] = [
+  {
+    id: 'award-1',
+    title: 'AGP RECAPITULATION & REAL-TIME LIVE SCORE SYSTEM',
+    category: 'COMPETITION SYSTEM DIGITALIZATION',
+    organization: 'Universitas Kuningan & AGP Committee',
+    year: '2025',
+    description: 'First successful engineering and deployment of an integrated digital judging and live score platform for a regional scout tournament, eliminating hours of manual score calculation.',
+    imageUrl: '/projects/rekapitulasiagp.png',
+  },
+  {
+    id: 'award-2',
+    title: 'INFORMATICS ENGINEERING ACADEMIC EXCELLENCE (GPA 3.84)',
+    category: 'ACADEMIC RECOGNITION',
+    organization: 'Faculty of Computer Science, Universitas Kuningan',
+    year: '2024 - 2026',
+    description: 'Consistent academic performance with high honors (3.84 / 4.00 GPA), excelling in Software Engineering, Advanced Web Programming, and Database Systems.',
+    imageUrl: '/projects/sisteminformasipramuka2katapang.png',
+  },
+];
+
+export const enCertifications: CertificationItem[] = [
+  {
+    id: 'cert-1',
+    title: 'Foundational Web Programming Fundamentals',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'May 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+  {
+    id: 'cert-2',
+    title: 'Building Modern Web Applications with React',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'Aug 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+  {
+    id: 'cert-3',
+    title: 'Software Engineering Principles & Database Systems',
+    issuer: 'Faculty of Computer Science Universitas Kuningan',
+    date: 'Jan 2024',
+    credentialUrl: 'https://uniku.ac.id',
+  },
+  {
+    id: 'cert-4',
+    title: 'Modern JavaScript & Frontend Development',
+    issuer: 'Dicoding / FreeCodeCamp Community',
+    date: 'Nov 2024',
+    credentialUrl: 'https://www.freecodecamp.org',
+  },
+  {
+    id: 'cert-5',
+    title: 'Full-Stack Web Architecture (Next.js & Supabase)',
+    issuer: 'Independent Portfolio Lab Verification',
+    date: 'Feb 2025',
+    credentialUrl: 'https://github.com/Prinaldi77',
+  },
+  {
+    id: 'cert-6',
+    title: 'Repository & Version Control Management (Git & GitHub)',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'Dec 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+];
+
+export const enOrganizations: OrganizationItem[] = [
+  {
+    id: 'org-1',
+    name: 'INFORMATICS ENGINEERING STUDENT ASSOCIATION (HIMA TI)',
+    institution: 'Universitas Kuningan',
+    period: '2024 — Present',
+    logoText: 'HIMA TI',
+    roles: [
+      {
+        role: 'Active Board Member',
+        period: '2024 — Present',
+      },
+      {
+        role: 'Technology Development & Student Mentorship Division',
+        period: '2024 — 2025',
+      },
+    ],
+    programs: [
+      {
+        number: '01',
+        title: 'AGP Information & Score Recapitulation System',
+        role: 'Lead Web Engineer & Recapitulation Architecture',
+        location: 'Kuningan, ID',
+        date: '2025',
+      },
+      {
+        number: '02',
+        title: 'Freshman Informatics Student Cadre Mentorship',
+        role: 'Event Division & Student Cadre Mentor',
+        location: 'Kuningan, ID',
+        date: '2024 — 2025',
+      },
+      {
+        number: '03',
+        title: 'Student Web Technology Workshop & Seminar',
+        role: 'Technical Documentation & Public Outreach',
+        location: 'Kuningan, ID',
+        date: '2024',
+      },
+    ],
+  },
+];
+
 export const enData: PortfolioData = {
   profile: enProfile,
   personalInfo: enProfile,
@@ -225,6 +343,9 @@ export const enData: PortfolioData = {
   skillCategories: enTechStack,
   journey: enJourney,
   experiences: enJourney,
+  awards: enAwards,
+  certifications: enCertifications,
+  organizations: enOrganizations,
   navItems: [
     { label: 'HOME', href: '#home' },
     { label: 'ABOUT', href: '#about' },

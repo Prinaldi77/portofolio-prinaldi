@@ -1,4 +1,13 @@
-import type { PortfolioData, Profile, TechStack, JourneyItem, Project } from '../types/portfolio';
+import type {
+  PortfolioData,
+  Profile,
+  TechStack,
+  JourneyItem,
+  Project,
+  AwardItem,
+  CertificationItem,
+  OrganizationItem,
+} from '../types/portfolio';
 
 export const idProfile: Profile = {
   name: 'MUHAMAD PRINALDI',
@@ -218,6 +227,115 @@ export const idProjects: Project[] = [
   },
 ];
 
+export const idAwards: AwardItem[] = [
+  {
+    id: 'award-1',
+    title: 'SISTEM REKAPITULASI & LIVE SCORE AGP',
+    category: 'DIGITALISASI SISTEM LOMBA',
+    organization: 'Universitas Kuningan & Panitia AGP',
+    year: '2025',
+    description: 'Pengembangan dan implementasi perdana sistem rekapitulasi penilaian lomba kepramukaan terintegrasi dengan live scoreboard real-time yang memangkas waktu kalkulasi hasil perlombaan dari hitungan jam menjadi instan.',
+    imageUrl: '/projects/rekapitulasiagp.png',
+  },
+  {
+    id: 'award-2',
+    title: 'PRESTASI AKADEMIK TEKNIK INFORMATIKA (IPK 3.84)',
+    category: 'PENGHARGAAN AKADEMIK',
+    organization: 'Fakultas Ilmu Komputer, Universitas Kuningan',
+    year: '2024 - 2026',
+    description: 'Pencapaian konsistensi akademik berpredikat Sangat Memuaskan dengan fokus keahlian pada mata kuliah Rekayasa Perangkat Lunak, Pemrograman Web Lanjut, dan Sistem Basis Data.',
+    imageUrl: '/projects/sisteminformasipramuka2katapang.png',
+  },
+];
+
+export const idCertifications: CertificationItem[] = [
+  {
+    id: 'cert-1',
+    title: 'Belajar Dasar Pemrograman Web',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'Mei 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+  {
+    id: 'cert-2',
+    title: 'Belajar Membuat Aplikasi Web dengan React',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'Agu 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+  {
+    id: 'cert-3',
+    title: 'Dasar Rekayasa Perangkat Lunak & Sistem Basis Data',
+    issuer: 'Fakultas Ilmu Komputer Universitas Kuningan',
+    date: 'Jan 2024',
+    credentialUrl: 'https://uniku.ac.id',
+  },
+  {
+    id: 'cert-4',
+    title: 'Modern JavaScript & Frontend Development',
+    issuer: 'Dicoding / FreeCodeCamp Community',
+    date: 'Nov 2024',
+    credentialUrl: 'https://www.freecodecamp.org',
+  },
+  {
+    id: 'cert-5',
+    title: 'Full-Stack Web Architecture (Next.js & Supabase)',
+    issuer: 'Verifikasi Portfolio Mandiri',
+    date: 'Feb 2025',
+    credentialUrl: 'https://github.com/Prinaldi77',
+  },
+  {
+    id: 'cert-6',
+    title: 'Pengelolaan Repositori & Version Control (Git & GitHub)',
+    issuer: 'Dicoding Academy Indonesia',
+    date: 'Des 2024',
+    credentialUrl: 'https://www.dicoding.com/certificates',
+  },
+];
+
+export const idOrganizations: OrganizationItem[] = [
+  {
+    id: 'org-1',
+    name: 'HIMPUNAN MAHASISWA TEKNIK INFORMATIKA (HIMA TI)',
+    institution: 'Universitas Kuningan',
+    period: '2024 — Sekarang',
+    logoText: 'HIMA TI',
+    roles: [
+      {
+        role: 'Pengurus Aktif HIMA TI',
+        period: '2024 — Sekarang',
+      },
+      {
+        role: 'Divisi Pengembangan Teknologi & Kaderisasi',
+        period: '2024 — 2025',
+      },
+    ],
+    programs: [
+      {
+        number: '01',
+        title: 'Sistem Informasi & Rekapitulasi Lomba AGP',
+        role: 'Ketua Tim Teknis Web & Rekapitulasi Nilai',
+        location: 'Kuningan, ID',
+        date: '2025',
+      },
+      {
+        number: '02',
+        title: 'Kaderisasi Mahasiswa Baru Teknik Informatika',
+        role: 'Divisi Acara & Pendampingan Kader',
+        location: 'Kuningan, ID',
+        date: '2024 — 2025',
+      },
+      {
+        number: '03',
+        title: 'Seminar & Workshop Teknologi Mahasiswa',
+        role: 'Panitia Publikasi & Dokumentasi Teknis',
+        location: 'Kuningan, ID',
+        date: '2024',
+      },
+    ],
+  },
+];
+
 export const idData: PortfolioData = {
   profile: idProfile,
   personalInfo: idProfile,
@@ -225,6 +343,9 @@ export const idData: PortfolioData = {
   skillCategories: idTechStack,
   journey: idJourney,
   experiences: idJourney,
+  awards: idAwards,
+  certifications: idCertifications,
+  organizations: idOrganizations,
   navItems: [
     { label: 'BERANDA', href: '#home' },
     { label: 'TENTANG', href: '#about' },

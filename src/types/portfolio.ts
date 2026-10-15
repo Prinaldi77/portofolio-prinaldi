@@ -87,6 +87,47 @@ export interface JourneyItem {
   archiveLabel?: string;
 }
 
+export interface AwardItem {
+  id: string;
+  title: string;
+  organization: string;
+  year: string;
+  description: string;
+  imageUrl?: string;
+  category: string;
+}
+
+export interface CertificationItem {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialUrl?: string;
+}
+
+export interface OrganizationRole {
+  role: string;
+  period: string;
+}
+
+export interface OrganizationWorkItem {
+  number: string;
+  title: string;
+  role: string;
+  location: string;
+  date: string;
+}
+
+export interface OrganizationItem {
+  id: string;
+  name: string;
+  institution: string;
+  period: string;
+  logoText?: string;
+  roles: OrganizationRole[];
+  programs: OrganizationWorkItem[];
+}
+
 export interface GuestbookReply {
   id: string;
   name: string;
@@ -140,6 +181,9 @@ export interface PortfolioData {
   projects: Project[];
   journey: JourneyItem[];
   experiences: JourneyItem[]; // Aliased for backward compatibility
+  awards?: AwardItem[];
+  certifications?: CertificationItem[];
+  organizations?: OrganizationItem[];
   guestbook: GuestbookSection;
   navItems: NavItem[];
   sectionHeaders: {

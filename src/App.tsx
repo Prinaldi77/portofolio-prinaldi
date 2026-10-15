@@ -7,9 +7,10 @@ import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
-import JourneySection from './components/JourneySection';
+import AwardsSection from './components/AwardsSection';
+import CertificationsSection from './components/CertificationsSection';
+import OrganizationsSection from './components/OrganizationsSection';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
 import GuestbookDrawer from './components/GuestbookDrawer';
 
 export const App: React.FC = () => {
@@ -22,8 +23,9 @@ export const App: React.FC = () => {
     profile,
     techStack,
     projects,
-    journey,
-    sectionHeaders,
+    awards,
+    certifications,
+    organizations,
     labels,
     guestbook,
   } = currentData;
@@ -40,12 +42,12 @@ export const App: React.FC = () => {
 
       {/* 2. Main Content */}
       <main className="relative">
-        {/* BAGIAN [01] — Hero Section (Sticky at top) */}
+        {/* BAGIAN [01] — Hero Section (01 / 08, Sticky at top) */}
         <Hero personalInfo={profile} currentLang={lang} />
 
-        {/* Rising Card Container (BAGIAN [02] s/d [08]) that slides over Hero on scroll */}
+        {/* Rising Card Container (BAGIAN [02] s/d [08]) that slides smoothly over Hero on scroll */}
         <div className="relative z-10 bg-white dark:bg-neutral-950 rounded-t-[32px] shadow-[0_-15px_40px_rgba(0,0,0,0.06)] border-t border-gray-100 dark:border-neutral-900 min-h-screen">
-          {/* BAGIAN [02] — Tentang / Profil */}
+          {/* BAGIAN [02] — Tentang / Profil (02 / 08) */}
           <AboutSection
             personalInfo={profile}
             downloadCvLabel={labels.downloadCvButton}
@@ -53,47 +55,40 @@ export const App: React.FC = () => {
             currentLang={lang}
           />
 
-          {/* BAGIAN [03] — Keahlian Teknis (3x2 Grid) */}
+          {/* BAGIAN [03] — Keahlian Teknis (03 / 08) */}
           <SkillsSection
             techStack={techStack}
             currentLang={lang}
           />
 
-          {/* BAGIAN [04] — Karya Pilihan (Zig-Zag Layout) */}
+          {/* BAGIAN [04] — Karya Pilihan (04 / 08) */}
           <ProjectsSection
             projects={projects}
             currentLang={lang}
           />
 
-          {/* Journey Section (Timeline) */}
-          <JourneySection
-            journey={journey}
-            header={sectionHeaders.experience}
+          {/* BAGIAN [05] — Prestasi & Penghargaan (05 / 08) */}
+          <AwardsSection
+            awards={awards}
             currentLang={lang}
           />
 
-          {/* Contact Section */}
-          <Contact
-            personalInfo={profile}
-            header={sectionHeaders.contact}
-            labels={{
-              locationLabel: labels.locationLabel,
-              emailLabel: labels.emailLabel,
-              formNameLabel: labels.formNameLabel,
-              formEmailLabel: labels.formEmailLabel,
-              formMessageLabel: labels.formMessageLabel,
-              formSubmitButton: labels.formSubmitButton,
-              formSuccessTitle: labels.formSuccessTitle,
-              formSuccessDesc: labels.formSuccessDesc,
-              formResetButton: labels.formResetButton,
-            }}
+          {/* BAGIAN [06] — Sertifikasi & Lisensi (06 / 08) */}
+          <CertificationsSection
+            certifications={certifications}
+            currentLang={lang}
           />
 
-          {/* Footer inside the rising container */}
-          <Footer
+          {/* BAGIAN [07] — Pengalaman Organisasi (07 / 08) */}
+          <OrganizationsSection
+            organizations={organizations}
+            currentLang={lang}
+          />
+
+          {/* BAGIAN [08] — Kontak & Footer (08 / 08) */}
+          <Contact
             personalInfo={profile}
-            copyrightText={labels.copyrightText}
-            backToTopLabel={labels.backToTopLabel}
+            currentLang={lang}
           />
         </div>
       </main>
