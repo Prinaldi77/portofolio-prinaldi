@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, FileText } from 'lucide-react';
+import { Menu, X, Sun, Moon, FileText, MessageSquare } from 'lucide-react';
 import type { Language } from '../types/portfolio';
 
 interface NavbarProps {
@@ -25,7 +25,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     return false;
   });
 
-  // Sync dark class on document root & localStorage
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -40,48 +39,42 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsDark((prev) => !prev);
   };
 
+  const isId = currentLang === 'id';
+
   const navLinks = [
-    { label: currentLang === 'id' ? 'Tentang' : 'About', href: '#about' },
-    { label: currentLang === 'id' ? 'Proyek' : 'Projects', href: '#projects' },
-    { label: currentLang === 'id' ? 'Perjalanan' : 'Journey', href: '#journey' },
-    { label: currentLang === 'id' ? 'Buku Tamu' : 'Guestbook', href: '#guestbook', isGuestbook: true },
-    { label: currentLang === 'id' ? 'Kontak' : 'Contact', href: '#contact' },
+    { label: isId ? 'TENTANG' : 'ABOUT', href: '#about' },
+    { label: isId ? 'KEAHLIAN' : 'SKILLS', href: '#skills' },
+    { label: isId ? 'KARYA' : 'WORKS', href: '#projects' },
+    { label: isId ? 'PERJALANAN' : 'JOURNEY', href: '#journey' },
+    { label: isId ? 'BUKU TAMU' : 'GUESTBOOK', href: '#guestbook', isGuestbook: true },
+    { label: isId ? 'KONTAK' : 'CONTACT', href: '#contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b-2 border-black dark:border-neutral-800 transition-colors">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border-b border-gray-200 dark:border-neutral-800 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo Inisial / Brand di Kiri */}
+          {/* Left: Brand PORTOFOLIO */}
           <a
             href="#home"
-            className="flex items-center gap-2.5 group"
-            aria-label="Muhamad Prinaldi Home"
+            className="flex items-center gap-3 group select-none"
+            aria-label="Muhamad Prinaldi Portfolio Home"
           >
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-hard-sm dark:shadow-hard-sm-white group-hover:-translate-y-0.5 transition-all flex items-center justify-center">
-              <img
-                src="/assets/logo-badge-black.svg"
-                alt="Prinaldi Logo"
-                className="w-full h-full object-contain block dark:hidden"
-              />
-              <img
-                src="/assets/logo-badge-white.svg"
-                alt="Prinaldi Logo"
-                className="w-full h-full object-contain hidden dark:block"
-              />
+            <div className="w-8 h-8 rounded-lg bg-black text-white dark:bg-white dark:text-black flex items-center justify-center font-mono font-bold text-xs tracking-wider transition-transform group-hover:scale-105">
+              MP
             </div>
-            <div className="hidden sm:block text-left leading-tight">
-              <span className="block font-black text-sm text-black dark:text-white tracking-tight group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                PRINALDI
+            <div className="leading-tight">
+              <span className="font-bold text-sm sm:text-base tracking-widest text-black dark:text-white uppercase">
+                PORTOFOLIO
               </span>
-              <span className="block font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
-                DEVELOPER
+              <span className="block font-mono text-[9px] text-neutral-400 uppercase tracking-widest">
+                PRINALDI / 2026
               </span>
             </div>
           </a>
 
-          {/* Navigasi Tengah: About, Projects, Journey, Guestbook, Contact */}
-          <nav className="hidden md:flex items-center gap-7">
+          {/* Center: Navigation Links */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -92,62 +85,72 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onOpenGuestbook();
                   }
                 }}
-                className="text-xs sm:text-sm font-bold tracking-wider text-black dark:text-neutral-200 hover:text-neutral-600 dark:hover:text-white uppercase transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black dark:after:bg-white hover:after:w-full after:transition-all"
+                className="font-mono text-xs font-semibold tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white uppercase transition-colors relative py-1"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Tombol Kanan: Language Switch, Theme Toggle Icon, Resume */}
+          {/* Right: Actions (Guestbook, Language Toggle, Theme, Resume) */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Language Switcher Pill */}
+            {/* Guestbook Button trigger */}
+            {onOpenGuestbook && (
+              <button
+                type="button"
+                onClick={onOpenGuestbook}
+                aria-label="Open Guestbook Drawer"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 font-mono text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition-colors"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>{isId ? 'Buku Tamu' : 'Guestbook'}</span>
+              </button>
+            )}
+
+            {/* Language Switcher ID | ENG */}
             {onToggleLang && (
               <div
-                className="inline-flex items-center p-0.5 rounded-full border border-black dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-bold shadow-hard-sm dark:shadow-hard-sm-white transition-colors"
+                className="inline-flex items-center p-0.5 rounded-md border border-gray-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 text-[11px] font-mono font-bold"
                 role="group"
                 aria-label="Language Selector"
               >
                 <button
                   type="button"
-                  onClick={() => onToggleLang('en')}
-                  className={`px-2.5 py-1 rounded-full transition-all text-[11px] font-black ${
-                    currentLang === 'en'
-                      ? 'bg-black dark:bg-white text-white dark:text-black'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white'
-                  }`}
-                  aria-pressed={currentLang === 'en'}
-                >
-                  EN
-                </button>
-                <button
-                  type="button"
                   onClick={() => onToggleLang('id')}
-                  className={`px-2.5 py-1 rounded-full transition-all text-[11px] font-black ${
+                  className={`px-2 py-1 rounded transition-colors ${
                     currentLang === 'id'
-                      ? 'bg-black dark:bg-white text-white dark:text-black'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white'
+                      ? 'bg-black text-white dark:bg-white dark:text-black'
+                      : 'text-neutral-500 hover:text-black dark:hover:text-white'
                   }`}
                   aria-pressed={currentLang === 'id'}
                 >
                   ID
                 </button>
+                <span className="text-neutral-300 dark:text-neutral-700 px-0.5">|</span>
+                <button
+                  type="button"
+                  onClick={() => onToggleLang('en')}
+                  className={`px-2 py-1 rounded transition-colors ${
+                    currentLang === 'en'
+                      ? 'bg-black text-white dark:bg-white dark:text-black'
+                      : 'text-neutral-500 hover:text-black dark:hover:text-white'
+                  }`}
+                  aria-pressed={currentLang === 'en'}
+                >
+                  ENG
+                </button>
               </div>
             )}
 
-            {/* Dark / Light Mode Switcher Button */}
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-              className="w-9 h-9 rounded-xl border-2 border-black dark:border-neutral-700 bg-white dark:bg-neutral-900 text-black dark:text-white flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 shadow-hard-sm dark:shadow-hard-sm-white transition-all hover:-translate-y-0.5 active:translate-y-0"
+              className="w-8 h-8 rounded-md border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 flex items-center justify-center hover:border-black dark:hover:border-white transition-colors"
             >
-              {isDark ? (
-                <Sun className="w-4 h-4 text-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-neutral-800" />
-              )}
+              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
 
             {/* Resume Button */}
@@ -155,21 +158,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black uppercase text-white dark:text-black bg-black dark:bg-white border-2 border-black dark:border-white hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-hard-sm dark:shadow-hard-sm-white transition-all hover:-translate-y-0.5"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase text-white bg-black dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Resume</span>
+              <span>CV</span>
             </a>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Menu Button */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-xl border-2 border-black dark:border-neutral-700 text-black dark:text-white bg-white dark:bg-neutral-900 shadow-hard-sm dark:shadow-hard-sm-white focus:outline-none"
+              className="md:hidden p-2 rounded-md border border-gray-200 dark:border-neutral-800 text-black dark:text-white bg-white dark:bg-neutral-900 focus:outline-none"
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
@@ -177,8 +180,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="md:hidden border-t-2 border-black dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-colors">
-          <div className="px-5 py-4 space-y-2.5">
+        <div className="md:hidden border-t border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-colors">
+          <div className="px-5 py-4 space-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -190,21 +193,33 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onOpenGuestbook();
                   }
                 }}
-                className="block px-3 py-2 rounded-lg text-sm font-black uppercase text-black dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
+                className="block px-3 py-2 rounded-md font-mono text-xs font-bold uppercase text-black dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
               >
                 {link.label}
               </a>
             ))}
-            <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800">
+            <div className="pt-2 border-t border-gray-100 dark:border-neutral-800 flex items-center justify-between">
               <a
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-black uppercase"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black font-mono text-xs font-bold uppercase"
               >
-                <FileText className="w-4 h-4" />
-                <span>Resume PDF</span>
+                <FileText className="w-3.5 h-3.5" />
+                <span>Unduh CV (PDF)</span>
               </a>
+              {onOpenGuestbook && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpen(false);
+                    onOpenGuestbook();
+                  }}
+                  className="font-mono text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+                >
+                  {isId ? 'Buku Tamu →' : 'Guestbook →'}
+                </button>
+              )}
             </div>
           </div>
         </div>

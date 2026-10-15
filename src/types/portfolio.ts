@@ -30,6 +30,7 @@ export interface Profile {
   onlineStatus: string;
   codeSnippet: string;
   floatingBadges: string[];
+  aboutHeadline?: string;
   about: string[];
   location: string;
   locationCity: string;

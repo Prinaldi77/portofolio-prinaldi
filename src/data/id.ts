@@ -24,9 +24,11 @@ const developer = {
     'TYPESCRIPT',
     'HIMA TI',
   ],
+  aboutHeadline: 'Junior Web & Software Engineer yang berfokus pada rekayasa sistem web fungsional, arsitektur modular, dan integritas data.',
   about: [
-    'Mahasiswa Teknik Informatika Semester 5 di Universitas Kuningan dan pengurus aktif Himpunan Mahasiswa Teknik Informatika (HIMA TI) sejak tahun 2024.',
-    'Berfokus sebagai solo developer dalam membangun aplikasi web fungsional menggunakan Next.js, Node.js murni, Supabase, dan Web API modern untuk kebutuhan riil.'
+    'Saya Muhamad Prinaldi, mahasiswa semester 5 Teknik Informatika di Universitas Kuningan yang mendalami rekayasa web secara mandiri (solo developer). Saya terbiasa merancang antarmuka web yang bersih sekaligus membangun arsitektur sistem yang terstruktur menggunakan ekosistem Next.js, Node.js murni, TypeScript, dan Supabase untuk menghasilkan aplikasi web yang fungsional, presisi, dan siap produksi.',
+    'Selain perkuliahan, saya aktif mentransformasikan kebutuhan riil menjadi solusi digital—mulai dari membangun sistem informasi dan rekapitulasi penilaian lomba berskala besar (AGP) dengan live scoreboard, aplikasi web photobooth komersial interaktif via iPad, hingga portal informasi instansi. Di lingkungan kampus, saya aktif di Himpunan Mahasiswa Teknik Informatika (HIMA TI) sejak 2024, memimpin pelaksanaan program kerja serta membimbing kaderisasi mahasiswa baru.',
+    'Bagi saya, rekayasa perangkat lunak adalah tentang kejelasan logika dan keandalan sistem. Setiap perancangan struktur basis data, modularitas komponen kode, dan alur pengalaman pengguna dirancang secara terencana untuk menyederhanakan proses yang rumit menjadi solusi digital yang tenang, efisien, dan bernilai guna nyata.'
   ],
   location: 'Indonesia',
   locationCity: 'BANDUNG, ID',
@@ -54,7 +56,7 @@ const developer = {
 
 export const idTechStack: TechStack[] = [
   {
-    category: 'BAHASA PEMROGRAMAN',
+    category: 'CORE LANGUAGES',
     skills: [
       { name: 'TypeScript', level: 'Menengah' },
       { name: 'JavaScript', level: 'Mahir' },
@@ -65,26 +67,48 @@ export const idTechStack: TechStack[] = [
     ],
   },
   {
-    category: 'FRAMEWORK & RUNTIME',
+    category: 'PRIMARY FRAMEWORKS',
     skills: [
       { name: 'Next.js', level: 'Mahir' },
       { name: 'Node.js', level: 'Mahir' },
       { name: 'React.js', level: 'Mahir' },
       { name: 'Express.js', level: 'Mahir' },
-      { name: 'Tailwind CSS', level: 'Mahir' },
-      { name: 'Laravel', level: 'Menengah' },
     ],
   },
   {
-    category: 'BASIS DATA & EKOSISTEM',
+    category: 'STYLING & UI ARCHITECTURE',
+    skills: [
+      { name: 'Tailwind CSS', level: 'Mahir' },
+      { name: 'Responsive Grid', level: 'Mahir' },
+      { name: 'Semantic HTML', level: 'Mahir' },
+      { name: 'Component Modularity', level: 'Mahir' },
+    ],
+  },
+  {
+    category: 'DATABASES & ORM',
+    skills: [
+      { name: 'Supabase', level: 'Menengah' },
+      { name: 'MySQL', level: 'Mahir' },
+      { name: 'PostgreSQL', level: 'Menengah' },
+      { name: 'Relational Schemas', level: 'Menengah' },
+    ],
+  },
+  {
+    category: 'TOOLS & DEPLOYMENT',
     skills: [
       { name: 'Git & GitHub', level: 'Mahir' },
       { name: 'Vite', level: 'Mahir' },
-      { name: 'PostgreSQL', level: 'Menengah' },
-      { name: 'MySQL', level: 'Mahir' },
-      { name: 'Supabase', level: 'Menengah' },
-      { name: 'Vercel', level: 'Mahir' },
-      { name: 'Postman', level: 'Menengah' },
+      { name: 'Vercel Platform', level: 'Mahir' },
+      { name: 'Postman API Testing', level: 'Menengah' },
+    ],
+  },
+  {
+    category: 'SPECIALIZED FOCUS',
+    skills: [
+      { name: 'Web Recapitulation Systems', level: 'Mahir' },
+      { name: 'Interactive QR Code Workflows', level: 'Mahir' },
+      { name: 'Real-time Live Scoreboards', level: 'Mahir' },
+      { name: 'RESTful API Integration', level: 'Mahir' },
     ],
   },
 ];

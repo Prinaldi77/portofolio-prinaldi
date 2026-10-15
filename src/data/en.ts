@@ -24,9 +24,11 @@ const developer = {
     'TYPESCRIPT',
     'HIMA TI',
   ],
+  aboutHeadline: 'Junior Web & Software Engineer focused on functional web systems, modular architecture, and data integrity.',
   about: [
-    '5th-semester Informatics Engineering student at Universitas Kuningan and active member of HIMA TI (Himpunan Mahasiswa Teknik Informatika) since 2024.',
-    'Focused as a solo developer building practical full-stack web applications using Next.js, pure Node.js, Supabase, and modern web APIs.'
+    'I am Muhamad Prinaldi, a 5th-semester Informatics Engineering student at Universitas Kuningan dedicated to mastering full-stack web engineering as an independent solo developer. I specialize in designing clean web interfaces while engineering structured backend systems using Next.js, pure Node.js, TypeScript, and Supabase to deliver robust, production-ready applications.',
+    'Beyond coursework, I actively turn real-world requirements into functional digital products—ranging from an integrated competition scoring and live recapitulation system (AGP), an iPad-operated commercial web photobooth, to institutional web portals. On campus, I have been an active member of HIMA TI (Informatics Student Association) since 2024, leading departmental work programs and mentoring new student cohorts.',
+    'To me, software engineering centers on logical clarity and system reliability. Every database schema, component modularity, and user workflow is purposefully crafted to translate complex processes into calm, efficient, and genuinely valuable digital solutions.'
   ],
   location: 'Indonesia',
   locationCity: 'BANDUNG, ID',
@@ -65,26 +67,48 @@ export const enTechStack: TechStack[] = [
     ],
   },
   {
-    category: 'FRAMEWORKS & RUNTIMES',
+    category: 'PRIMARY FRAMEWORKS',
     skills: [
       { name: 'Next.js', level: 'Advanced' },
       { name: 'Node.js', level: 'Advanced' },
       { name: 'React.js', level: 'Advanced' },
       { name: 'Express.js', level: 'Advanced' },
-      { name: 'Tailwind CSS', level: 'Advanced' },
-      { name: 'Laravel', level: 'Intermediate' },
     ],
   },
   {
-    category: 'DATABASES & ECOSYSTEM',
+    category: 'STYLING & UI ARCHITECTURE',
+    skills: [
+      { name: 'Tailwind CSS', level: 'Advanced' },
+      { name: 'Responsive Grid', level: 'Advanced' },
+      { name: 'Semantic HTML', level: 'Advanced' },
+      { name: 'Component Modularity', level: 'Advanced' },
+    ],
+  },
+  {
+    category: 'DATABASES & ORM',
+    skills: [
+      { name: 'Supabase', level: 'Intermediate' },
+      { name: 'MySQL', level: 'Advanced' },
+      { name: 'PostgreSQL', level: 'Intermediate' },
+      { name: 'Relational Schemas', level: 'Intermediate' },
+    ],
+  },
+  {
+    category: 'TOOLS & DEPLOYMENT',
     skills: [
       { name: 'Git & GitHub', level: 'Advanced' },
       { name: 'Vite', level: 'Advanced' },
-      { name: 'PostgreSQL', level: 'Intermediate' },
-      { name: 'MySQL', level: 'Advanced' },
-      { name: 'Supabase', level: 'Intermediate' },
-      { name: 'Vercel', level: 'Advanced' },
-      { name: 'Postman', level: 'Intermediate' },
+      { name: 'Vercel Platform', level: 'Advanced' },
+      { name: 'Postman API Testing', level: 'Intermediate' },
+    ],
+  },
+  {
+    category: 'SPECIALIZED FOCUS',
+    skills: [
+      { name: 'Web Recapitulation Systems', level: 'Advanced' },
+      { name: 'Interactive QR Code Workflows', level: 'Advanced' },
+      { name: 'Real-time Live Scoreboards', level: 'Advanced' },
+      { name: 'RESTful API Integration', level: 'Advanced' },
     ],
   },
 ];
