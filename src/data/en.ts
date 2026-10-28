@@ -214,6 +214,23 @@ export const enProjects: Project[] = [
       { label: 'DEPLOYMENT', value: 'VERCEL' },
     ],
   },
+  {
+    id: 'project-4',
+    category: 'MOBILE FINANCE APP',
+    title: 'DOMPETKU — OFFLINE-FIRST PERSONAL FINANCE APP',
+    description: 'A native Android money tracker built so the numbers cannot drift: every amount is written through a single ledger service inside one SQLite transaction, so the balance is always derived from the records rather than stored separately. Ships with a PIN + fingerprint app lock, file-based backup and restore with integrity checks, and a per-category expense breakdown. Runs fully offline — no backend, no account, no network permission.',
+    tags: ['Flutter', 'Dart', 'Drift', 'Riverpod', 'go_router', 'local_auth', 'Material 3'],
+    imageUrl: '/projects/dompetku-portfolio-hero-mobile.png',
+    imageAlt: 'DompetKu on two Android phones: the PIN and fingerprint lock screen next to the home screen showing the main balance and recent transactions.',
+    caseStudyUrl: 'https://github.com/Prinaldi77/Dompet-Ku/blob/main/prd_aplikasi_keuangan_flutter_v1.3.md',
+    githubUrl: 'https://github.com/Prinaldi77/Dompet-Ku',
+    featured: false,
+    metrics: [
+      { label: 'FRONTEND', value: 'FLUTTER / MATERIAL 3' },
+      { label: 'STORAGE', value: 'SQLITE (DRIFT)' },
+      { label: 'SECURITY', value: 'PIN + BIOMETRIC' },
+    ],
+  },
 ];
 
 export const enAwards: AwardItem[] = [

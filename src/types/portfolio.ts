@@ -66,6 +66,7 @@ export interface Project {
   description: string;
   tags: string[];
   imageUrl: string;
+  imageAlt?: string;
   demoUrl?: string;
   caseStudyUrl?: string;
   githubUrl?: string;

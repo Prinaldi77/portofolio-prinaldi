@@ -214,6 +214,23 @@ export const idProjects: Project[] = [
       { label: 'DEPLOYMENT', value: 'VERCEL' },
     ],
   },
+  {
+    id: 'project-4',
+    category: 'APLIKASI KEUANGAN MOBILE',
+    title: 'DOMPETKU — APLIKASI KEUANGAN OFFLINE-FIRST',
+    description: 'Aplikasi pencatat uang Android yang dibangun supaya angkanya tidak bisa menyimpang: setiap nominal ditulis lewat satu ledger service di dalam satu transaksi SQLite, jadi saldo selalu diturunkan dari catatan, bukan disimpan terpisah. Sudah termasuk kunci aplikasi PIN + sidik jari, backup & restore berbasis file dengan pemeriksaan integritas, dan rincian pengeluaran per kategori. Berjalan penuh offline — tanpa backend, tanpa akun, tanpa izin jaringan.',
+    tags: ['Flutter', 'Dart', 'Drift', 'Riverpod', 'go_router', 'local_auth', 'Material 3'],
+    imageUrl: '/projects/dompetku-portfolio-hero-mobile.png',
+    imageAlt: 'DompetKu di dua ponsel Android: layar kunci PIN dan sidik jari di samping layar beranda yang menampilkan saldo utama dan transaksi terbaru.',
+    caseStudyUrl: 'https://github.com/Prinaldi77/Dompet-Ku/blob/main/prd_aplikasi_keuangan_flutter_v1.3.md',
+    githubUrl: 'https://github.com/Prinaldi77/Dompet-Ku',
+    featured: false,
+    metrics: [
+      { label: 'FRONTEND', value: 'FLUTTER / MATERIAL 3' },
+      { label: 'PENYIMPANAN', value: 'SQLITE (DRIFT)' },
+      { label: 'KEAMANAN', value: 'PIN + BIOMETRIK' },
+    ],
+  },
 ];
 
 export const idAwards: AwardItem[] = [

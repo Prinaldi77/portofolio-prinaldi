@@ -99,9 +99,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 shadow-sm">
                         <img
                           src={project.imageUrl}
-                          alt={project.title}
+                          alt={project.imageAlt ?? project.title}
                           className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
