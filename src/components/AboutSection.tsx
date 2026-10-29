@@ -40,6 +40,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         ? 'Junior Web & Software Engineer // Bandung, ID'
         : 'Junior Web & Software Engineer // Bandung, ID',
       imageUrl: photoUrl,
+      imagePos: 'object-[48%_68%] scale-[1.28]',
       footerLeft: '[ FIG. 01 ]',
       footerRight: isId ? 'DOKUMENTASI PROFIL' : 'PROFILE ARCHIVE',
     },
@@ -49,7 +50,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
       badge: isId ? 'KREDENSIAL AKADEMIK' : 'ACADEMIC CREDENTIAL',
       title: academic?.university || 'UNIVERSITAS KUNINGAN',
       subtitle: `${academic?.major || 'Teknik Informatika'} // IPK ${academic?.gpaScore || '3.84'} / 4.00`,
-      imageUrl: '/projects/mockup-katapang.jpg',
+      imageUrl: '/projects/sisteminformasipramuka2katapang.png',
+      imagePos: 'object-top',
       footerLeft: '[ FIG. 02 ]',
       footerRight: academic?.gpaStatus || 'SANGAT MEMUASKAN',
     },
@@ -59,7 +61,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
       badge: isId ? 'REKAYASA SISTEM' : 'SYSTEM ARCHITECTURE',
       title: isId ? 'Arsitektur Full-Stack & Mobile' : 'Full-Stack & Mobile Architecture',
       subtitle: 'Next.js · Node.js · Supabase · Flutter SQLite',
-      imageUrl: '/projects/mockup-agp.jpg',
+      imageUrl: '/projects/photoboothkarta.png',
+      imagePos: 'object-[70%_center] scale-[1.1]',
       footerLeft: '[ FIG. 03 ]',
       footerRight: 'HIMA TI // SOLO DEV',
     },
@@ -269,7 +272,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                       <img
                         src={card.imageUrl}
                         alt={card.title}
-                        className={`w-full h-full object-cover object-center transition-all duration-700 ${
+                        className={`w-full h-full object-cover transition-all duration-700 ${card.imagePos} ${
                           index === 0 && isFront ? 'grayscale hover:grayscale-0' : ''
                         }`}
                         loading="lazy"
@@ -278,28 +281,34 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
                       {/* Top Card Badge */}
                       <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                        <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider">
-                          {card.badge}
-                        </span>
-                        <span className="font-mono text-xs font-bold text-white/80">
+                        {isFront ? (
+                          <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                            {card.badge}
+                          </span>
+                        ) : (
+                          <span />
+                        )}
+                        <span className="px-2.5 py-0.5 rounded-full bg-black/70 font-mono text-xs font-bold text-white/90">
                           {card.indexLabel}
                         </span>
                       </div>
 
-                      {/* Bottom Overlay Content */}
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="font-display font-bold text-lg text-white leading-tight">
-                          {card.title}
-                        </h3>
-                        <p className="font-mono text-[11px] text-neutral-300 mt-1">
-                          {card.subtitle}
-                        </p>
+                      {/* Bottom Overlay Content (Shown cleanly on active front card only) */}
+                      {isFront && (
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="font-display font-bold text-lg text-white leading-tight">
+                            {card.title}
+                          </h3>
+                          <p className="font-mono text-[11px] text-neutral-300 mt-1">
+                            {card.subtitle}
+                          </p>
 
-                        <div className="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between font-mono text-[10px] text-neutral-300">
-                          <span className="font-bold text-white">{card.footerLeft}</span>
-                          <span>{card.footerRight}</span>
+                          <div className="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between font-mono text-[10px] text-neutral-300">
+                            <span className="font-bold text-white">{card.footerLeft}</span>
+                            <span>{card.footerRight}</span>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </motion.div>
                 );

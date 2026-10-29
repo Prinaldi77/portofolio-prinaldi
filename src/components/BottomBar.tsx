@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, ArrowUp, MapPin, Calendar } from 'lucide-react';
 import type { Language } from '../types/portfolio';
 
@@ -17,6 +17,18 @@ export const BottomBar: React.FC<BottomBarProps> = ({
   currentLang = 'en',
   onOpenGuestbook,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show persistent bottom bar after scrolling past the Hero section's own bottom bar
+      setIsVisible(window.scrollY > 150);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const locale = currentLang === 'id' ? 'id-ID' : 'en-US';
   const formattedDate = SESSION_DATE.toLocaleDateString(locale, {
     day: 'numeric',
@@ -35,7 +47,11 @@ export const BottomBar: React.FC<BottomBarProps> = ({
   return (
     <aside
       aria-label="Persistent Bottom Bar"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#050505]/95 backdrop-blur-md border-t border-neutral-200 dark:border-white/15 py-2 px-4 select-none transition-colors"
+      className={`fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#050505]/95 backdrop-blur-md border-t border-neutral-200 dark:border-white/15 py-2 px-4 select-none transition-all duration-300 ${
+        isVisible
+          ? 'translate-y-0 opacity-100 pointer-events-auto'
+          : 'translate-y-full opacity-0 pointer-events-none'
+      }`}
     >
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 relative font-mono text-xs">
         {/* Left: Real Availability Status */}

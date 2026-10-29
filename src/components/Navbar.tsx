@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-50 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md border-b border-neutral-200 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-3">
+        <div className="flex items-center justify-between h-16 gap-3">
           {/* Left: Circular Logo Badge & Identity */}
           <a
             href="#home"
