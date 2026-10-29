@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Download, GraduationCap, Code2, Layers } from 'lucide-react';
+import { ArrowUpRight, Download, GraduationCap, Code2, MapPin } from 'lucide-react';
 import type { Profile, Language } from '../types/portfolio';
 import SectionHeader from './SectionHeader';
 
@@ -27,52 +27,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   const academic = data?.academic;
   const cvBtnText = downloadCvLabel || (isId ? 'UNDUH RESUME (CV)' : 'DOWNLOAD RESUME (CV)');
 
-  // Active card index in the Diagonal Fanned Card Stack (Animation 2)
-  const [activeDeckIndex, setActiveDeckIndex] = useState<number>(0);
-
-  const deckCards = [
-    {
-      id: 'deck-portrait',
-      indexLabel: 'FIG. 01',
-      badge: isId ? 'POTRET RESMI' : 'OFFICIAL PORTRAIT',
-      title: data?.name || 'MUHAMAD PRINALDI',
-      subtitle: isId
-        ? 'Junior Web & Software Engineer // Bandung, ID'
-        : 'Junior Web & Software Engineer // Bandung, ID',
-      imageUrl: photoUrl,
-      imagePos: 'object-[48%_68%] scale-[1.28]',
-      footerLeft: '[ FIG. 01 ]',
-      footerRight: isId ? 'DOKUMENTASI PROFIL' : 'PROFILE ARCHIVE',
-    },
-    {
-      id: 'deck-academic',
-      indexLabel: 'FIG. 02',
-      badge: isId ? 'KREDENSIAL AKADEMIK' : 'ACADEMIC CREDENTIAL',
-      title: academic?.university || 'UNIVERSITAS KUNINGAN',
-      subtitle: `${academic?.major || 'Teknik Informatika'} // IPK ${academic?.gpaScore || '3.84'} / 4.00`,
-      imageUrl: '/projects/sisteminformasipramuka2katapang.png',
-      imagePos: 'object-top',
-      footerLeft: '[ FIG. 02 ]',
-      footerRight: academic?.gpaStatus || 'SANGAT MEMUASKAN',
-    },
-    {
-      id: 'deck-systems',
-      indexLabel: 'FIG. 03',
-      badge: isId ? 'REKAYASA SISTEM' : 'SYSTEM ARCHITECTURE',
-      title: isId ? 'Arsitektur Full-Stack & Mobile' : 'Full-Stack & Mobile Architecture',
-      subtitle: 'Next.js · Node.js · Supabase · Flutter SQLite',
-      imageUrl: '/projects/photoboothkarta.png',
-      imagePos: 'object-[70%_center] scale-[1.1]',
-      footerLeft: '[ FIG. 03 ]',
-      footerRight: 'HIMA TI // SOLO DEV',
-    },
-  ];
-
   const topPills = [
-    { symbol: '+', label: 'NEXT.JS & NODE.JS', deckIdx: 2 },
-    { symbol: '#', label: 'SUPABASE & SQLITE', deckIdx: 2 },
-    { symbol: '*', label: isId ? 'AKADEMIK IPK 3.84' : 'GPA 3.84 UNIKU', deckIdx: 1 },
-    { symbol: 'o', label: isId ? 'POTRET PROFIL' : 'PORTRAIT FIG.01', deckIdx: 0 },
+    { symbol: '+', label: 'NEXT.JS & NODE.JS', href: '#skills' },
+    { symbol: '#', label: 'SUPABASE & SQLITE', href: '#skills' },
+    { symbol: '*', label: isId ? 'AKADEMIK IPK 3.84' : 'GPA 3.84 UNIKU', href: '#awards' },
+    { symbol: 'o', label: isId ? 'POTRET PROFIL FIG.01' : 'PORTRAIT FIG.01', href: '#about' },
   ];
 
   return (
@@ -90,29 +49,25 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           className="mb-6 sm:mb-8"
         />
 
-        {/* Top Ticker / Interactive Pill Bar (Matching 00:05 in Reference Video) */}
+        {/* Top Ticker / Editorial Pill Bar (Matching 00:05 in Reference Video) */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-8 mb-10 border-b border-neutral-200 dark:border-white/10">
           <div className="flex flex-wrap items-center gap-2">
-            {topPills.map((pill, idx) => {
-              const isSelected = activeDeckIndex === pill.deckIdx;
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveDeckIndex(pill.deckIdx)}
-                  className={`inline-flex items-center gap-2 px-3.5 min-h-[40px] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
-                    isSelected
-                      ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white'
-                      : 'bg-neutral-100 text-neutral-700 border-neutral-300 dark:bg-[#121215] dark:text-neutral-300 dark:border-white/15 hover:border-black dark:hover:border-white'
-                  }`}
-                >
-                  <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px] leading-none">
-                    {pill.symbol}
-                  </span>
-                  <span>{pill.label}</span>
-                </button>
-              );
-            })}
+            {topPills.map((pill, idx) => (
+              <a
+                key={idx}
+                href={pill.href}
+                className={`inline-flex items-center gap-2 px-3.5 min-h-[38px] rounded-full font-mono text-[11px] font-bold uppercase tracking-wider border transition-colors ${
+                  idx === 3
+                    ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white'
+                    : 'bg-neutral-100 text-neutral-700 border-neutral-300 dark:bg-[#121215] dark:text-neutral-300 dark:border-white/15 hover:border-black dark:hover:border-white'
+                }`}
+              >
+                <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px] leading-none">
+                  {pill.symbol}
+                </span>
+                <span>{pill.label}</span>
+              </a>
+            ))}
           </div>
 
           <a
@@ -123,7 +78,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           </a>
         </div>
 
-        {/* Main 2-Column Scene 2 Layout: 3-Line Editorial Statement (Left) + Diagonal Fanned Card Stack (Right) */}
+        {/* Main 2-Column Scene 2 Layout: 3-Line Editorial Statement (Left) + Single Personal Portrait Card (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           {/* Left Column (7 Cols): Giant 3-Line Statement + Narrative + Credentials */}
           <motion.div
@@ -133,7 +88,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col justify-between"
           >
-            {/* Giant 3-Line Statement (Matching 00:06-00:08 "Revolutionizing / Product / Visualization") */}
+            {/* Giant 3-Line Statement */}
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">
@@ -219,7 +174,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
           </motion.div>
 
-          {/* Right Column (5 Cols): Diagonal Fanned Card Cascade (Matching 00:06-00:08 in Video) */}
+          {/* Right Column (5 Cols): Dedicated Personal Portrait Frame (Only personal photo, no rotating project images) */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -227,122 +182,44 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 flex flex-col items-center lg:items-end"
           >
-            {/* Diagonal Fanned Stack Container */}
-            <div className="relative w-full max-w-[380px] h-[440px] sm:h-[470px] flex items-center justify-center">
-              {deckCards.map((card, index) => {
-                const offset = (index - activeDeckIndex + deckCards.length) % deckCards.length;
-                const isFront = offset === 0;
-                const isSecond = offset === 1;
+            <div className="w-full max-w-[380px] rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/15 bg-neutral-900 text-white shadow-2xl group">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-950">
+                <img
+                  src={photoUrl}
+                  alt={data?.name || 'Muhamad Prinaldi'}
+                  className="w-full h-full object-cover object-[48%_68%] scale-[1.18] grayscale group-hover:grayscale-0 group-hover:scale-[1.22] transition-all duration-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/25" />
 
-                // Diagonal cascade coordinates (bottom-left to top-right fan)
-                const translateX = isFront ? 0 : isSecond ? 26 : 52;
-                const translateY = isFront ? 20 : isSecond ? -12 : -44;
-                const scale = isFront ? 1 : isSecond ? 0.92 : 0.84;
-                const rotate = isFront ? 0 : isSecond ? 4 : 8;
-                const zIndex = isFront ? 30 : isSecond ? 20 : 10;
+                {/* Top Portrait Badge */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                    {isId ? 'POTRET RESMI' : 'OFFICIAL PORTRAIT'}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-black/70 font-mono text-xs font-bold text-white/90">
+                    FIG. 01
+                  </span>
+                </div>
 
-                return (
-                  <motion.div
-                    key={card.id}
-                    animate={{
-                      x: translateX,
-                      y: translateY,
-                      scale,
-                      rotate,
-                      zIndex,
-                    }}
-                    transition={{ type: 'spring', stiffness: 240, damping: 25 }}
-                    onClick={() => setActiveDeckIndex(index)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveDeckIndex(index);
-                      }
-                    }}
-                    aria-label={`${isId ? 'Tampilkan kartu' : 'Show card'} ${card.title}`}
-                    className={`absolute w-[290px] sm:w-[320px] rounded-3xl overflow-hidden border cursor-pointer transition-colors ${
-                      isFront
-                        ? 'border-amber-500/70 bg-neutral-900 text-white shadow-2xl'
-                        : 'border-neutral-300 dark:border-white/15 bg-neutral-800 text-white opacity-85 hover:opacity-100 shadow-xl'
-                    }`}
-                  >
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-950">
-                      <img
-                        src={card.imageUrl}
-                        alt={card.title}
-                        className={`w-full h-full object-cover transition-all duration-700 ${card.imagePos} ${
-                          index === 0 && isFront ? 'grayscale hover:grayscale-0' : ''
-                        }`}
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/30" />
+                {/* Bottom Portrait Caption */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="font-display font-bold text-lg text-white leading-tight">
+                    {data?.name || 'MUHAMAD PRINALDI'}
+                  </h3>
+                  <p className="font-mono text-[11px] text-neutral-300 mt-1">
+                    {data?.role || 'Full Stack Developer'} // UNIKU
+                  </p>
 
-                      {/* Top Card Badge */}
-                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                        {isFront ? (
-                          <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider">
-                            {card.badge}
-                          </span>
-                        ) : (
-                          <span />
-                        )}
-                        <span className="px-2.5 py-0.5 rounded-full bg-black/70 font-mono text-xs font-bold text-white/90">
-                          {card.indexLabel}
-                        </span>
-                      </div>
-
-                      {/* Bottom Overlay Content (Shown cleanly on active front card only) */}
-                      {isFront && (
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <h3 className="font-display font-bold text-lg text-white leading-tight">
-                            {card.title}
-                          </h3>
-                          <p className="font-mono text-[11px] text-neutral-300 mt-1">
-                            {card.subtitle}
-                          </p>
-
-                          <div className="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between font-mono text-[10px] text-neutral-300">
-                            <span className="font-bold text-white">{card.footerLeft}</span>
-                            <span>{card.footerRight}</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Deck Control Bar Underneath */}
-            <div className="w-full max-w-[380px] mt-3 flex items-center justify-between px-2">
-              <div className="flex items-center gap-1.5">
-                {deckCards.map((c, idx) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    onClick={() => setActiveDeckIndex(idx)}
-                    aria-label={`Pilih ${c.indexLabel}`}
-                    className={`px-3 min-h-[36px] rounded-full font-mono text-[11px] font-bold transition-colors cursor-pointer ${
-                      activeDeckIndex === idx
-                        ? 'bg-black text-white dark:bg-white dark:text-black'
-                        : 'bg-neutral-100 text-neutral-700 dark:bg-[#121215] dark:text-neutral-400 hover:text-black dark:hover:text-white'
-                    }`}
-                  >
-                    {c.indexLabel}
-                  </button>
-                ))}
+                  <div className="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between font-mono text-[10px] text-neutral-300">
+                    <span className="font-bold text-white">[ FIG. 01 ]</span>
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-amber-400" />
+                      <span>{data?.locationCity || 'BANDUNG, ID'}</span>
+                    </span>
+                  </div>
+                </div>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setActiveDeckIndex((prev) => (prev + 1) % deckCards.length)}
-                className="inline-flex items-center gap-1.5 px-3 min-h-[36px] rounded-full border border-neutral-300 dark:border-white/15 font-mono text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition-colors cursor-pointer"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>{isId ? 'Putar Kartu' : 'Next Card'}</span>
-              </button>
             </div>
           </motion.div>
         </div>
