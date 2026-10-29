@@ -6,27 +6,113 @@ endobj
 << /Type /Pages /Kids [3 0 R] /Count 1 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << >> >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> >>
 endobj
 4 0 obj
-<< /Length 51 >>
+<< /Length 9459 >>
 stream
-BT
-/F1 24 Tf
-100 700 Td
-(Resume - Muhamad Prinaldi) Tj
-ET
+BT 0.04 0.04 0.05 rg /F2 18 Tf 1 0 0 1 204.83 803.89 Tm (MUHAMAD PRINALDI) Tj ET
+BT 0.22 0.22 0.25 rg /F2 9.8 Tf 1 0 0 1 175.50 789.39 Tm (JUNIOR FULL-STACK WEB & MOBILE DEVELOPER) Tj ET
+BT 0.2 0.2 0.23 rg /F1 8.8 Tf 1 0 0 1 121.85 776.39 Tm (Bandung, Jawa Barat, Indonesia  |  +62 831-4215-6680  |  muhamadprinaldi123@gmail.com) Tj ET
+BT 0.25 0.25 0.28 rg /F1 8.6 Tf 1 0 0 1 108.78 764.89 Tm (Portofolio: https://portofolio-prinaldi.vercel.app  |  GitHub: github.com/Prinaldi77  |  Lahir: 21 Juli 2005) Tj ET
+BT 0.05 0.05 0.06 rg /F2 10.2 Tf 1 0 0 1 42.00 745.89 Tm (RINGKASAN PROFESIONAL) Tj ET
+0.1 0.1 0.12 RG 0.85 w 42 741.39 m 553.28 741.39 l S
+BT 0.15 0.15 0.18 rg /F1 8.9 Tf 1 0 0 1 42.00 728.39 Tm (Mahasiswa Semester 5 Teknik Informatika Universitas Kuningan \(IPK 3.84 / 4.00\) yang berfokus pada rekayasa aplikasi web) Tj ET
+BT 0.15 0.15 0.18 rg /F1 8.9 Tf 1 0 0 1 42.00 716.59 Tm (full-stack dan mobile Android berarsitektur modular. Berpengalaman merancang, membangun, dan merilis 4 sistem perangkat lunak) Tj ET
+BT 0.15 0.15 0.18 rg /F1 8.9 Tf 1 0 0 1 42.00 704.79 Tm (siap produksi menggunakan ekosistem Next.js, Node.js, TypeScript, Supabase \(PostgreSQL\), serta Flutter \(Drift SQLite) Tj ET
+BT 0.15 0.15 0.18 rg /F1 8.9 Tf 1 0 0 1 42.00 692.99 Tm (offline-first\). Terbiasa menerjemahkan kebutuhan operasional nyata menjadi solusi digital dengan integritas basis data yang ketat,) Tj ET
+BT 0.15 0.15 0.18 rg /F1 8.9 Tf 1 0 0 1 42.00 681.19 Tm (antarmuka pengguna yang bersih, dan alur deployment terstruktur.) Tj ET
+BT 0.05 0.05 0.06 rg /F2 10.2 Tf 1 0 0 1 42.00 656.39 Tm (PENDIDIKAN) Tj ET
+0.1 0.1 0.12 RG 0.85 w 42 651.89 m 553.28 651.89 l S
+BT 0.05 0.05 0.07 rg /F2 9.5 Tf 1 0 0 1 42.00 638.89 Tm (UNIVERSITAS KUNINGAN \(UNIKU\)) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.8 Tf 1 0 0 1 345.43 638.89 Tm (Kuningan, Jawa Barat  |  2024 - 2028 \(Semester 5\)) Tj ET
+BT 0.12 0.12 0.15 rg /F3 9 Tf 1 0 0 1 42.00 626.89 Tm (S1 Teknik Informatika  -  IPK: 3.84 / 4.00 \(Predikat: Sangat Memuaskan\)) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 615.09 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 615.09 Tm (Mata Kuliah Relevan: Rekayasa Perangkat Lunak, Pemrograman Web, Sistem Basis Data, Analisis & Perancangan Sistem,) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 602.49 Tm (Web Design.) Tj ET
+BT 0.05 0.05 0.06 rg /F2 10.2 Tf 1 0 0 1 42.00 576.89 Tm (PENGALAMAN PROYEK & REKAYASA SISTEM) Tj ET
+0.1 0.1 0.12 RG 0.85 w 42 572.39 m 553.28 572.39 l S
+BT 0.05 0.05 0.07 rg /F2 9.3 Tf 1 0 0 1 42.00 559.39 Tm (SISTEM INFORMASI & REKAPITULASI NILAI LOMBA AGP) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.7 Tf 1 0 0 1 415.05 559.39 Tm (Full-Stack Web Developer  |  2025) Tj ET
+BT 0.25 0.25 0.29 rg /F3 8.5 Tf 1 0 0 1 42.00 548.19 Tm (Teknologi: Next.js, Node.js, TypeScript, Supabase \(PostgreSQL\), Tailwind CSS  |  github.com/Prinaldi77/Rekapitulasi_Agp) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 536.69 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 536.69 Tm (Membangun pusat sistem informasi jadwal lomba kepramukaan \(AGP\), papan skor real-time \(live scoreboard\), dan panel) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 524.09 Tm (rekapitulasi nilai juri terintegrasi yang memangkas waktu kalkulasi hasil lomba dari hitungan jam menjadi instan.) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 511.49 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 511.49 Tm (Merancang skema basis data relasional di Supabase serta kontrol akses panel panitia guna menjamin akurasi dan integritas) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 498.89 Tm (skor dari berbagai mata lomba.) Tj ET
+BT 0.05 0.05 0.07 rg /F2 9.3 Tf 1 0 0 1 42.00 483.79 Tm (DOMPETKU: APLIKASI KEUANGAN PRIBADI OFFLINE-FIRST) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.7 Tf 1 0 0 1 401.91 483.79 Tm (Mobile Application Developer  |  2025) Tj ET
+BT 0.25 0.25 0.29 rg /F3 8.5 Tf 1 0 0 1 42.00 472.59 Tm (Teknologi: Flutter, Dart, Drift \(SQLite\), Riverpod, go_router, local_auth, Material 3  |  github.com/Prinaldi77/Dompet-Ku) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 461.09 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 461.09 Tm (Merekayasa aplikasi pencatat keuangan Android yang berjalan 100% offline dengan arsitektur single-transaction ledger service) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 448.49 Tm (di SQLite sehingga saldo utama selalu diturunkan secara akurat dari riwayat transaksi tanpa risiko selisih angka.) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 435.89 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 435.89 Tm (Mengimplementasikan autentikasi keamanan aplikasi menggunakan PIN dan biometrik sidik jari, rincian pengeluaran per) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 423.29 Tm (kategori, serta fitur backup & restore berbasis file dengan pemeriksaan integritas data.) Tj ET
+BT 0.05 0.05 0.07 rg /F2 9.3 Tf 1 0 0 1 42.00 408.19 Tm (APLIKASI WEB KOMERSIAL PHOTOBOOTH KARTA 02) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.7 Tf 1 0 0 1 407.76 408.19 Tm (Independent Web Developer  |  2025) Tj ET
+BT 0.25 0.25 0.29 rg /F3 8.5 Tf 1 0 0 1 42.00 396.99 Tm (Teknologi: Next.js, React, TypeScript, MediaPipe Gesture, HTML5 Canvas, QR Code, Vercel) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 385.49 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 385.49 Tm (Mengembangkan dan memonetisasi aplikasi web photobooth komersial pada perangkat iPad untuk perayaan puncak HUT RI) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 372.89 Tm (Karang Taruna dengan fitur pemicu kamera gestur 5 jari otomatis dan bingkai tematik.) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 360.29 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 360.29 Tm (Merancang pemrosesan kolase strip foto langsung di sisi klien serta pengunduhan instan ke ponsel pengunjung melalui) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 347.69 Tm (pemindaian QR Code.) Tj ET
+BT 0.05 0.05 0.07 rg /F2 9.3 Tf 1 0 0 1 42.00 332.59 Tm (SISTEM INFORMASI PRAMUKA SMPN 2 KATAPANG) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.7 Tf 1 0 0 1 439.28 332.59 Tm (Solo Web Developer  |  2024) Tj ET
+BT 0.25 0.25 0.29 rg /F3 8.5 Tf 1 0 0 1 42.00 321.39 Tm (Teknologi: Node.js, Express.js, JavaScript, MySQL, Responsive Web Design) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 309.89 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 309.89 Tm (Merancang dan membangun portal web profil pangkalan gugus depan SMPN 2 Katapang, publikasi jadwal latihan rutin, serta) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 297.29 Tm (galeri arsip dokumentasi kepramukaan menggunakan runtime Node.js murni dan MySQL.) Tj ET
+BT 0.05 0.05 0.06 rg /F2 10.2 Tf 1 0 0 1 42.00 271.69 Tm (PENGALAMAN ORGANISASI & KEPEMIMPINAN) Tj ET
+0.1 0.1 0.12 RG 0.85 w 42 267.19 m 553.28 267.19 l S
+BT 0.05 0.05 0.07 rg /F2 9.3 Tf 1 0 0 1 42.00 254.19 Tm (HIMPUNAN MAHASISWA TEKNIK INFORMATIKA \(HIMA TI\) - UNIVERSITAS KUNINGAN) Tj ET
+BT 0.2 0.2 0.23 rg /F2 8.7 Tf 1 0 0 1 486.97 254.19 Tm (2024 - Sekarang) Tj ET
+BT 0.22 0.22 0.26 rg /F3 8.7 Tf 1 0 0 1 42.00 242.99 Tm (Pengurus Aktif  |  Divisi Pengembangan Teknologi & Kaderisasi) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 231.49 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 231.49 Tm (Memimpin tim teknis pengembangan web kepanitiaan, termasuk perancangan arsitektur rekapitulasi nilai lomba AGP 2025,) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 218.89 Tm (serta mengelola publikasi dan dokumentasi teknis seminar/workshop teknologi mahasiswa.) Tj ET
+BT 0.1 0.1 0.12 rg /F2 9 Tf 1 0 0 1 44.00 206.29 Tm (-) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 206.29 Tm (Berperan dalam divisi acara dan pendampingan kaderisasi mahasiswa baru Teknik Informatika untuk membangun budaya) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 53.00 193.69 Tm (akademik dan kolaborasi rekayasa perangkat lunak.) Tj ET
+BT 0.05 0.05 0.06 rg /F2 10.2 Tf 1 0 0 1 42.00 168.09 Tm (KEAHLIAN TEKNIS, SERTIFIKASI & BAHASA) Tj ET
+0.1 0.1 0.12 RG 0.85 w 42 163.59 m 553.28 163.59 l S
+BT 0.08 0.08 0.1 rg /F2 9 Tf 1 0 0 1 42.00 150.59 Tm (Frontend & Web: ) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 113.85 150.59 Tm (React, Next.js, TypeScript, JavaScript \(ES6+\), HTML5, CSS3, Tailwind CSS, Bootstrap) Tj ET
+BT 0.08 0.08 0.1 rg /F2 9 Tf 1 0 0 1 42.00 137.79 Tm (Backend & Basis Data: ) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 140.47 137.79 Tm (Node.js, Express.js, PHP, Supabase \(PostgreSQL\), MySQL, SQLite \(Drift\), REST API) Tj ET
+BT 0.08 0.08 0.1 rg /F2 9 Tf 1 0 0 1 42.00 124.99 Tm (Mobile, IoT & Perkakas: ) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 145.05 124.99 Tm (Flutter, Dart, Kotlin, Android Studio, ESP32, PlatformIO, C++, Git, GitHub, Vercel, Postman, VS Code) Tj ET
+BT 0.08 0.08 0.1 rg /F2 9 Tf 1 0 0 1 42.00 112.19 Tm (Sertifikasi: ) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 90.82 112.19 Tm (Belajar Membuat Aplikasi Web dengan React \(Dicoding, 2024\) | Belajar Dasar Pemrograman Web \(Dicoding, 2024\) |) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 42.00 99.39 Tm (Pengelolaan Repositori & Git/GitHub \(Dicoding, 2024\) | Dasar RPL & Basis Data \(FIKOM UNIKU, 2024\)) Tj ET
+BT 0.08 0.08 0.1 rg /F2 9 Tf 1 0 0 1 42.00 86.59 Tm (Bahasa: ) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 78.95 86.59 Tm (Bahasa Indonesia \(Penutur Asli / Native\)  |  Bahasa Inggris \(Menengah / Pembacaan Dokumentasi Teknis & Penulisan) Tj ET
+BT 0.15 0.15 0.18 rg /F1 9 Tf 1 0 0 1 42.00 73.79 Tm (Kode\)) Tj ET
 endstream
 endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
 xref
-0 5
+0 8
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
 0000000115 00000 n 
-0000000216 00000 n 
+0000000267 00000 n 
+0000009778 00000 n 
+0000009875 00000 n 
+0000009977 00000 n 
 trailer
-<< /Size 5 /Root 1 0 R >>
+<< /Size 8 /Root 1 0 R >>
 startxref
-318
+10082
 %%EOF
