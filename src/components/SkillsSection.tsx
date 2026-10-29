@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { TechStack, Language } from '../types/portfolio';
 import SectionHeader from './SectionHeader';
@@ -9,9 +9,8 @@ interface SkillsSectionProps {
   currentLang?: Language;
 }
 
-// Crisp, accurate Tech Icons matching the screenshot
 const TechIcon: React.FC<{ name: string }> = ({ name }) => {
-  const iconClass = "w-4 h-4 shrink-0";
+  const iconClass = 'w-4 h-4 shrink-0';
 
   switch (name) {
     case 'React':
@@ -32,7 +31,7 @@ const TechIcon: React.FC<{ name: string }> = ({ name }) => {
     case 'Tailwind CSS':
       return (
         <svg className={iconClass} viewBox="0 0 24 24" fill="#38BDF8">
-          <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.335 6.182 14.974 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.335 13.382 8.974 12 6.001 12z" />
+          <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.335 6.182 14.974 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913-.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.335 13.382 8.974 12 6.001 12z" />
         </svg>
       );
     case 'Bootstrap':
@@ -150,9 +149,7 @@ const TechIcon: React.FC<{ name: string }> = ({ name }) => {
         </svg>
       );
     default:
-      return (
-        <div className="w-2 h-2 rounded-full bg-neutral-400 shrink-0" />
-      );
+      return <div className="w-2 h-2 rounded-full bg-neutral-400 shrink-0" />;
   }
 };
 
@@ -163,28 +160,43 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
 }) => {
   const isId = currentLang === 'id';
   const data = techStack || categories || [];
+  const [focusedDomain, setFocusedDomain] = useState<string>('ALL');
 
-  // Group into standard 5 cards:
-  // Card 01: Frontend
-  // Card 02: Mobile
-  // Card 03: Backend & Database
-  // Card 04: IoT & Embedded
-  // Card 05: Tools & Dev
   const frontendCard = data.find((c) => c.category.toLowerCase().includes('front')) || data[0];
   const mobileCard = data.find((c) => c.category.toLowerCase().includes('mobile')) || data[1];
   const backendCard = data.find((c) => c.category.toLowerCase().includes('back')) || data[2];
   const iotCard = data.find((c) => c.category.toLowerCase().includes('iot')) || data[3];
   const toolsCard = data.find((c) => c.category.toLowerCase().includes('tool')) || data[4];
 
-  // For Tools & Dev, split skills into 2 columns (3 left, 3 right)
   const toolsLeft = toolsCard?.skills?.slice(0, 3) || [];
   const toolsRight = toolsCard?.skills?.slice(3) || [];
+
+  const domainTabs = [
+    { id: 'ALL', label: isId ? 'SEMUA (05)' : 'ALL (05)' },
+    { id: '01', label: '01 // FRONTEND' },
+    { id: '02', label: '02 // MOBILE' },
+    { id: '03', label: '03 // BACKEND & DB' },
+    { id: '04', label: '04 // IOT' },
+    { id: '05', label: '05 // TOOLS' },
+  ];
+
+  const getCardStyle = (cardId: string) => {
+    const isHighlighted = focusedDomain === cardId;
+    const isDimmed = focusedDomain !== 'ALL' && focusedDomain !== cardId;
+    return `p-6 rounded-3xl border transition-all duration-300 ${
+      isHighlighted
+        ? 'border-amber-500 bg-neutral-50 dark:bg-[#141418] ring-1 ring-amber-500/40'
+        : isDimmed
+        ? 'border-neutral-200 dark:border-white/10 bg-white dark:bg-[#0F0F11] opacity-50 hover:opacity-100'
+        : 'border-neutral-200 dark:border-white/15 bg-white dark:bg-[#0F0F11] hover:border-black dark:hover:border-white/40'
+    }`;
+  };
 
   return (
     <section
       id="skills"
       aria-label="Keahlian Teknis"
-      className="py-16 sm:py-24 bg-white dark:bg-neutral-950 text-black dark:text-white transition-colors"
+      className="py-16 sm:py-24 bg-white dark:bg-[#050505] text-black dark:text-white transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Standard Section Header */}
@@ -192,29 +204,60 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
           sectionNumber="03"
           totalSections="08"
           title={isId ? 'KEAHLIAN TEKNIS' : 'TECHNICAL SKILLS'}
-          className="mb-10 sm:mb-14"
+          className="mb-10 sm:mb-12"
         />
 
-        {/* Section Intro Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        {/* Section Intro Heading + Interactive Domain Focus Switcher */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black dark:text-white font-sans">
+            <span className="block font-mono text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500 mb-2">
+              // 05 {isId ? 'BIDANG SPESIALISASI' : 'SPECIALIZATION DOMAINS'}
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-black dark:text-white">
               {isId ? 'KOMPETENSI & TEKNOLOGI' : 'COMPETENCIES & STACK'}
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-neutral-500 dark:text-neutral-400 font-normal max-w-xl">
+            <p className="mt-2 text-sm sm:text-base text-neutral-700 dark:text-neutral-300 font-normal max-w-xl">
               {isId
-                ? 'Arsitektur teknologi dan perkakas rekayasa perangkat lunak, mobile, serta IoT yang dikuasai.'
+                ? 'Arsitektur teknologi dan perkakas rekayasa perangkat lunak web, mobile, serta sistem embedded IoT.'
                 : 'Technology stack and developer toolkits across web, mobile development, and embedded IoT systems.'}
             </p>
           </div>
-          <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">
-            // 05 {isId ? 'BIDANG SPESIALISASI' : 'SPECIALIZATION DOMAINS'}
-          </span>
+
+          {/* Interactive Domain Focus Pills */}
+          <div
+            role="group"
+            aria-label={isId ? 'Sorot Bidang Keahlian' : 'Highlight Skill Domain'}
+            className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl sm:rounded-full border border-neutral-200 dark:border-white/15 bg-neutral-100 dark:bg-[#121215]"
+          >
+            {domainTabs.map((tab) => {
+              const isActive = focusedDomain === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setFocusedDomain(tab.id)}
+                  aria-pressed={isActive}
+                  className={`relative px-3 min-h-[36px] rounded-full font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+                    isActive
+                      ? 'text-white dark:text-black'
+                      : 'text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeSkillDomainPill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 rounded-full bg-black dark:bg-white -z-0"
+                    />
+                  )}
+                  <span className="relative z-10">{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Layout Grid matching user screenshot:
-            Row 1: 3 equal cards (Frontend, Mobile, Backend & Database)
-            Row 2: 2 cards (IoT & Embedded col-span-1, Tools & Dev col-span-2 with 2 columns) */}
+        {/* 5-Card Asymmetric Technical Matrix */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           {/* Card 01: Frontend */}
           {frontendCard && (
@@ -222,34 +265,32 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-neutral-500 transition-colors shadow-none"
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setFocusedDomain(focusedDomain === '01' ? 'ALL' : '01')}
+              className={`${getCardStyle('01')} cursor-pointer`}
             >
-              {/* Card Header: Title Left, Number Right */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 dark:border-neutral-800">
-                <h3 className="font-bold text-base sm:text-lg text-black dark:text-white font-sans">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200 dark:border-white/10">
+                <h3 className="font-display font-bold text-base sm:text-lg text-black dark:text-white">
                   {frontendCard.category}
                 </h3>
-                <span className="font-mono text-xs sm:text-sm text-neutral-400">
-                  01
+                <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-500">
+                  // 01
                 </span>
               </div>
 
-              {/* Skills List */}
-              <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+              <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                 {frontendCard.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <TechIcon name={skill.name} />
-                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                         {skill.name}
                       </span>
                     </div>
-                    {/* Small square indicator dot */}
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                   </div>
                 ))}
               </div>
@@ -262,33 +303,32 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-neutral-500 transition-colors shadow-none"
+              transition={{ duration: 0.5, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setFocusedDomain(focusedDomain === '02' ? 'ALL' : '02')}
+              className={`${getCardStyle('02')} cursor-pointer`}
             >
-              {/* Card Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 dark:border-neutral-800">
-                <h3 className="font-bold text-base sm:text-lg text-black dark:text-white font-sans">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200 dark:border-white/10">
+                <h3 className="font-display font-bold text-base sm:text-lg text-black dark:text-white">
                   {mobileCard.category}
                 </h3>
-                <span className="font-mono text-xs sm:text-sm text-neutral-400">
-                  02
+                <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-500">
+                  // 02
                 </span>
               </div>
 
-              {/* Skills List */}
-              <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+              <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                 {mobileCard.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <TechIcon name={skill.name} />
-                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                         {skill.name}
                       </span>
                     </div>
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                   </div>
                 ))}
               </div>
@@ -301,131 +341,126 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-neutral-500 transition-colors shadow-none"
+              transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setFocusedDomain(focusedDomain === '03' ? 'ALL' : '03')}
+              className={`${getCardStyle('03')} cursor-pointer`}
             >
-              {/* Card Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 dark:border-neutral-800">
-                <h3 className="font-bold text-base sm:text-lg text-black dark:text-white font-sans">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200 dark:border-white/10">
+                <h3 className="font-display font-bold text-base sm:text-lg text-black dark:text-white">
                   {backendCard.category}
                 </h3>
-                <span className="font-mono text-xs sm:text-sm text-neutral-400">
-                  03
+                <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-500">
+                  // 03
                 </span>
               </div>
 
-              {/* Skills List */}
-              <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+              <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                 {backendCard.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <TechIcon name={skill.name} />
-                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                         {skill.name}
                       </span>
                     </div>
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                   </div>
                 ))}
               </div>
             </motion.div>
           )}
 
-          {/* Card 04: IoT & Embedded (col-span-1) */}
+          {/* Card 04: IoT & Embedded */}
           {iotCard && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:col-span-1 p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-neutral-500 transition-colors shadow-none"
+              transition={{ duration: 0.5, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setFocusedDomain(focusedDomain === '04' ? 'ALL' : '04')}
+              className={`lg:col-span-1 ${getCardStyle('04')} cursor-pointer`}
             >
-              {/* Card Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 dark:border-neutral-800">
-                <h3 className="font-bold text-base sm:text-lg text-black dark:text-white font-sans">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200 dark:border-white/10">
+                <h3 className="font-display font-bold text-base sm:text-lg text-black dark:text-white">
                   {iotCard.category}
                 </h3>
-                <span className="font-mono text-xs sm:text-sm text-neutral-400">
-                  04
+                <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-500">
+                  // 04
                 </span>
               </div>
 
-              {/* Skills List */}
-              <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+              <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                 {iotCard.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                    className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <TechIcon name={skill.name} />
-                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                         {skill.name}
                       </span>
                     </div>
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                   </div>
                 ))}
               </div>
             </motion.div>
           )}
 
-          {/* Card 05: Tools & Dev (col-span-2 with 2-column internal list) */}
+          {/* Card 05: Tools & Dev (col-span-2) */}
           {toolsCard && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="md:col-span-2 lg:col-span-2 p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-neutral-500 transition-colors shadow-none"
+              transition={{ duration: 0.5, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setFocusedDomain(focusedDomain === '05' ? 'ALL' : '05')}
+              className={`md:col-span-2 lg:col-span-2 ${getCardStyle('05')} cursor-pointer`}
             >
-              {/* Card Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 dark:border-neutral-800">
-                <h3 className="font-bold text-base sm:text-lg text-black dark:text-white font-sans">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200 dark:border-white/10">
+                <h3 className="font-display font-bold text-base sm:text-lg text-black dark:text-white">
                   {toolsCard.category}
                 </h3>
-                <span className="font-mono text-xs sm:text-sm text-neutral-400">
-                  05
+                <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-500">
+                  // 05
                 </span>
               </div>
 
-              {/* 2-Column List Layout */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-                {/* Left Column: Git, Postman, Android Studio */}
-                <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+                <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                   {toolsLeft.map((skill) => (
                     <div
                       key={skill.name}
-                      className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                      className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <TechIcon name={skill.name} />
-                        <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                        <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
-                      <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                     </div>
                   ))}
                 </div>
 
-                {/* Right Column: 9Router, Antigravity, VS Code */}
-                <div className="divide-y divide-gray-100/70 dark:divide-neutral-800/40">
+                <div className="divide-y divide-neutral-200/70 dark:divide-white/10">
                   {toolsRight.map((skill) => (
                     <div
                       key={skill.name}
-                      className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 px-1 rounded transition-colors"
+                      className="group/item flex items-center justify-between py-3 select-none hover:bg-neutral-100/70 dark:hover:bg-white/5 px-1.5 rounded-lg transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <TechIcon name={skill.name} />
-                        <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:white transition-colors">
+                        <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover/item:text-black dark:group-hover/item:text-white transition-colors">
                           {skill.name}
                         </span>
                       </div>
-                      <span className="w-1.5 h-1.5 rounded-[1px] bg-neutral-200 dark:bg-neutral-700 group-hover/item:bg-black dark:group-hover/item:white group-hover/item:scale-125 transition-all" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600 group-hover/item:bg-amber-500 group-hover/item:scale-125 transition-all" />
                     </div>
                   ))}
                 </div>

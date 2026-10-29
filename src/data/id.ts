@@ -36,7 +36,7 @@ const developer = {
   aboutHeadline: 'Junior Web & Software Engineer yang berfokus pada rekayasa sistem web fungsional, arsitektur modular, dan integritas data.',
   about: [
     'Saya Muhamad Prinaldi, mahasiswa semester 5 Teknik Informatika di Universitas Kuningan yang mendalami rekayasa web secara mandiri (solo developer). Saya terbiasa merancang antarmuka web yang bersih sekaligus membangun arsitektur sistem yang terstruktur menggunakan ekosistem Next.js, Node.js murni, TypeScript, dan Supabase untuk menghasilkan aplikasi web yang fungsional, presisi, dan siap produksi.',
-    'Selain perkuliahan, saya aktif mentransformasikan kebutuhan riil menjadi solusi digital—mulai dari membangun sistem informasi dan rekapitulasi penilaian lomba berskala besar (AGP) dengan live scoreboard, aplikasi web photobooth komersial interaktif via iPad, hingga portal informasi instansi. Di lingkungan kampus, saya aktif di Himpunan Mahasiswa Teknik Informatika (HIMA TI) sejak 2024, memimpin pelaksanaan program kerja serta membimbing kaderisasi mahasiswa baru.',
+    'Selain perkuliahan, saya aktif mentransformasikan kebutuhan riil menjadi solusi digital, mulai dari membangun sistem informasi dan rekapitulasi penilaian lomba berskala besar (AGP) dengan live scoreboard, aplikasi web photobooth komersial interaktif via iPad, hingga portal informasi instansi. Di lingkungan kampus, saya aktif di Himpunan Mahasiswa Teknik Informatika (HIMA TI) sejak 2024, memimpin pelaksanaan program kerja serta membimbing kaderisasi mahasiswa baru.',
     'Bagi saya, rekayasa perangkat lunak adalah tentang kejelasan logika dan keandalan sistem. Setiap perancangan struktur basis data, modularitas komponen kode, dan alur pengalaman pengguna dirancang secara terencana untuk menyederhanakan proses yang rumit menjadi solusi digital yang tenang, efisien, dan bernilai guna nyata.'
   ],
   location: 'Indonesia',
@@ -217,8 +217,8 @@ export const idProjects: Project[] = [
   {
     id: 'project-4',
     category: 'APLIKASI KEUANGAN MOBILE',
-    title: 'DOMPETKU — APLIKASI KEUANGAN OFFLINE-FIRST',
-    description: 'Aplikasi pencatat uang Android yang dibangun supaya angkanya tidak bisa menyimpang: setiap nominal ditulis lewat satu ledger service di dalam satu transaksi SQLite, jadi saldo selalu diturunkan dari catatan, bukan disimpan terpisah. Sudah termasuk kunci aplikasi PIN + sidik jari, backup & restore berbasis file dengan pemeriksaan integritas, dan rincian pengeluaran per kategori. Berjalan penuh offline — tanpa backend, tanpa akun, tanpa izin jaringan.',
+    title: 'DOMPETKU: APLIKASI KEUANGAN OFFLINE-FIRST',
+    description: 'Aplikasi pencatat uang Android yang dibangun supaya angkanya tidak bisa menyimpang: setiap nominal ditulis lewat satu ledger service di dalam satu transaksi SQLite, jadi saldo selalu diturunkan dari catatan, bukan disimpan terpisah. Sudah termasuk kunci aplikasi PIN + sidik jari, backup & restore berbasis file dengan pemeriksaan integritas, dan rincian pengeluaran per kategori. Berjalan penuh offline: tanpa backend, tanpa akun, tanpa izin jaringan.',
     tags: ['Flutter', 'Dart', 'Drift', 'Riverpod', 'go_router', 'local_auth', 'Material 3'],
     imageUrl: '/projects/dompetku-portfolio-hero-mobile.png',
     imageAlt: 'DompetKu di dua ponsel Android: layar kunci PIN dan sidik jari di samping layar beranda yang menampilkan saldo utama dan transaksi terbaru.',
@@ -304,16 +304,16 @@ export const idOrganizations: OrganizationItem[] = [
     id: 'org-1',
     name: 'HIMPUNAN MAHASISWA TEKNIK INFORMATIKA (HIMA TI)',
     institution: 'Universitas Kuningan',
-    period: '2024 — Sekarang',
+    period: '2024 - Sekarang',
     logoText: 'HIMA TI',
     roles: [
       {
         role: 'Pengurus Aktif HIMA TI',
-        period: '2024 — Sekarang',
+        period: '2024 - Sekarang',
       },
       {
         role: 'Divisi Pengembangan Teknologi & Kaderisasi',
-        period: '2024 — 2025',
+        period: '2024 - 2025',
       },
     ],
     programs: [
@@ -329,7 +329,7 @@ export const idOrganizations: OrganizationItem[] = [
         title: 'Kaderisasi Mahasiswa Baru Teknik Informatika',
         role: 'Divisi Acara & Pendampingan Kader',
         location: 'Kuningan, ID',
-        date: '2024 — 2025',
+        date: '2024 - 2025',
       },
       {
         number: '03',

@@ -36,7 +36,7 @@ const developer = {
   aboutHeadline: 'Junior Web & Software Engineer focused on functional web systems, modular architecture, and data integrity.',
   about: [
     'I am Muhamad Prinaldi, a 5th-semester Informatics Engineering student at Universitas Kuningan dedicated to mastering full-stack web engineering as an independent solo developer. I specialize in designing clean web interfaces while engineering structured backend systems using Next.js, pure Node.js, TypeScript, and Supabase to deliver robust, production-ready applications.',
-    'Beyond coursework, I actively turn real-world requirements into functional digital products—ranging from an integrated competition scoring and live recapitulation system (AGP), an iPad-operated commercial web photobooth, to institutional web portals. On campus, I have been an active member of HIMA TI (Informatics Student Association) since 2024, leading departmental work programs and mentoring new student cohorts.',
+    'Beyond coursework, I actively turn real-world requirements into functional digital products, ranging from an integrated competition scoring and live recapitulation system (AGP), an iPad-operated commercial web photobooth, to institutional web portals. On campus, I have been an active member of HIMA TI (Informatics Student Association) since 2024, leading departmental work programs and mentoring new student cohorts.',
     'To me, software engineering centers on logical clarity and system reliability. Every database schema, component modularity, and user workflow is purposefully crafted to translate complex processes into calm, efficient, and genuinely valuable digital solutions.'
   ],
   location: 'Indonesia',
@@ -217,8 +217,8 @@ export const enProjects: Project[] = [
   {
     id: 'project-4',
     category: 'MOBILE FINANCE APP',
-    title: 'DOMPETKU — OFFLINE-FIRST PERSONAL FINANCE APP',
-    description: 'A native Android money tracker built so the numbers cannot drift: every amount is written through a single ledger service inside one SQLite transaction, so the balance is always derived from the records rather than stored separately. Ships with a PIN + fingerprint app lock, file-based backup and restore with integrity checks, and a per-category expense breakdown. Runs fully offline — no backend, no account, no network permission.',
+    title: 'DOMPETKU: OFFLINE-FIRST PERSONAL FINANCE APP',
+    description: 'A native Android money tracker built so the numbers cannot drift: every amount is written through a single ledger service inside one SQLite transaction, so the balance is always derived from the records rather than stored separately. Ships with a PIN + fingerprint app lock, file-based backup and restore with integrity checks, and a per-category expense breakdown. Runs fully offline: no backend, no account, no network permission.',
     tags: ['Flutter', 'Dart', 'Drift', 'Riverpod', 'go_router', 'local_auth', 'Material 3'],
     imageUrl: '/projects/dompetku-portfolio-hero-mobile.png',
     imageAlt: 'DompetKu on two Android phones: the PIN and fingerprint lock screen next to the home screen showing the main balance and recent transactions.',
@@ -304,16 +304,16 @@ export const enOrganizations: OrganizationItem[] = [
     id: 'org-1',
     name: 'INFORMATICS ENGINEERING STUDENT ASSOCIATION (HIMA TI)',
     institution: 'Universitas Kuningan',
-    period: '2024 — Present',
+    period: '2024 - Present',
     logoText: 'HIMA TI',
     roles: [
       {
         role: 'Active Board Member',
-        period: '2024 — Present',
+        period: '2024 - Present',
       },
       {
         role: 'Technology Development & Student Mentorship Division',
-        period: '2024 — 2025',
+        period: '2024 - 2025',
       },
     ],
     programs: [
@@ -329,7 +329,7 @@ export const enOrganizations: OrganizationItem[] = [
         title: 'Freshman Informatics Student Cadre Mentorship',
         role: 'Event Division & Student Cadre Mentor',
         location: 'Kuningan, ID',
-        date: '2024 — 2025',
+        date: '2024 - 2025',
       },
       {
         number: '03',

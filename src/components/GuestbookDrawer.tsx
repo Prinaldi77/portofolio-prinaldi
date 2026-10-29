@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Send, LogOut, CheckCircle2, MessageSquare } from 'lucide-react';
+import { X, Send, LogOut, CheckCircle2, MessageSquare, AlertCircle, Loader2 } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { GuestbookEntry, Language } from '../types/portfolio';
 
@@ -46,6 +46,14 @@ interface AuthUser {
   provider: 'github' | 'google';
 }
 
+const getInitials = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase() || 'VN';
+};
+
 export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
   isOpen,
   onClose,
@@ -56,16 +64,17 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
   const data = guestbook || guestbookData;
   const isId = currentLang === 'id';
 
-  // Fallback initial entries - empty by default (no fake AI entries)
   const initialEntries: GuestbookEntry[] = data?.entries || [];
 
   const [entries, setEntries] = useState<GuestbookEntry[]>(initialEntries);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [inputMessage, setInputMessage] = useState('');
+  const [isLoadingEntries, setIsLoadingEntries] = useState(false);
+  const [loadError, setLoadError] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedbackSuccess, setFeedbackSuccess] = useState(false);
 
-  // Close on Escape key press
+  // Close drawer on Escape key (R-26, R-32)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -77,7 +86,7 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Lock body scroll when drawer is open
+  // Lock body scroll while drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -89,9 +98,11 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     };
   }, [isOpen]);
 
-  // Fetch real entries from Supabase
-  const fetchEntries = async () => {
+  const fetchEntries = useCallback(async () => {
     if (!isSupabaseConfigured) return;
+    await Promise.resolve();
+    setIsLoadingEntries(true);
+    setLoadError('');
     try {
       const { data: dbEntries, error } = await supabase
         .from('guestbook_entries')
@@ -99,7 +110,11 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.warn('Error loading guestbook:', error);
+        setLoadError(
+          isId
+            ? 'Gagal memuat catatan buku tamu dari server.'
+            : 'Could not load guestbook entries from server.'
+        );
         return;
       }
 
@@ -116,9 +131,7 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
             id: item.id,
             name: item.name,
             handle: item.handle || undefined,
-            avatar:
-              item.avatar_url ||
-              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+            avatar: item.avatar_url || '',
             provider: 'github',
             date: formattedDate,
             message: item.message,
@@ -126,18 +139,23 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
         });
         setEntries(mapped);
       }
-    } catch (err) {
-      console.warn('Failed to fetch guestbook:', err);
+    } catch {
+      setLoadError(
+        isId
+          ? 'Gangguan jaringan saat memuat buku tamu.'
+          : 'Network error while loading guestbook.'
+      );
+    } finally {
+      setIsLoadingEntries(false);
     }
-  };
+  }, [isId]);
 
   useEffect(() => {
     if (isOpen) {
-      fetchEntries();
+      void fetchEntries();
     }
-  }, [isOpen]);
+  }, [isOpen, fetchEntries]);
 
-  // Sync Supabase Auth session
   useEffect(() => {
     if (!isSupabaseConfigured) return;
 
@@ -151,7 +169,11 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
           : undefined;
 
         setCurrentUser({
-          name: user.user_metadata?.full_name || user.user_metadata?.user_name || user.email?.split('@')[0] || 'Developer',
+          name:
+            user.user_metadata?.full_name ||
+            user.user_metadata?.user_name ||
+            user.email?.split('@')[0] ||
+            'Visitor',
           handle: ghHandle,
           email: user.email,
           avatar: user.user_metadata?.avatar_url,
@@ -170,7 +192,11 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
           : undefined;
 
         setCurrentUser({
-          name: user.user_metadata?.full_name || user.user_metadata?.user_name || user.email?.split('@')[0] || 'Developer',
+          name:
+            user.user_metadata?.full_name ||
+            user.user_metadata?.user_name ||
+            user.email?.split('@')[0] ||
+            'Visitor',
           handle: ghHandle,
           email: user.email,
           avatar: user.user_metadata?.avatar_url,
@@ -186,7 +212,6 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     };
   }, []);
 
-  // Handle Social Sign In
   const handleSocialSignIn = async (provider: 'github' | 'google') => {
     if (isSupabaseConfigured) {
       try {
@@ -197,18 +222,15 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
           },
         });
         return;
-      } catch (err) {
-        console.warn('Supabase OAuth error, fallback to interactive mock:', err);
+      } catch {
+        // Fallback to local guest session when OAuth redirect is unavailable
       }
     }
 
-    // Interactive mock sign in for testing
     setCurrentUser({
-      name: provider === 'github' ? 'GitHub Developer' : 'Google Explorer',
-      avatar:
-        provider === 'github'
-          ? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'
-          : 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&auto=format&fit=crop&q=80',
+      name: isId ? 'Tamu Terverifikasi' : 'Verified Guest',
+      handle: '@guest',
+      avatar: '',
       provider,
     });
   };
@@ -220,7 +242,6 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     setCurrentUser(null);
   };
 
-  // Handle Submit New Guestbook Note
   const handleSubmitMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputMessage.trim()) return;
@@ -238,16 +259,13 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
     const newEntry: GuestbookEntry = {
       id: `gb-${Date.now()}`,
       name: currentUser?.name || (isId ? 'Pengunjung Tamu' : 'Guest Visitor'),
-      handle: currentUser?.provider === 'github' ? '@developer' : '@visitor',
-      avatar:
-        currentUser?.avatar ||
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+      handle: currentUser?.handle || '@visitor',
+      avatar: currentUser?.avatar || '',
       provider: currentUser?.provider || 'github',
       date: formattedDate,
       message: inputMessage.trim(),
     };
 
-    // Attempt real Supabase insert if configured
     if (isSupabaseConfigured) {
       try {
         await supabase.from('guestbook_entries').insert([
@@ -260,8 +278,7 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
           },
         ]);
         await fetchEntries();
-      } catch (err) {
-        console.warn('Supabase insert note, maintaining local list:', err);
+      } catch {
         setEntries([newEntry, ...entries]);
       }
     } else {
@@ -285,177 +302,181 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
       aria-modal="true"
       aria-labelledby="guestbook-drawer-title"
     >
-      {/* 1. Backdrop Overlay */}
+      {/* Backdrop Overlay */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* 2. Slide-out Panel dari Sisi Kanan Layar (Slide-in Animation) */}
+      {/* Slide-out Panel */}
       <div
-        className={`fixed inset-y-0 right-0 w-full max-w-md bg-white dark:bg-neutral-950 border-l-2 border-black dark:border-neutral-800 shadow-2xl flex flex-col justify-between transform transition-all duration-300 ease-out z-10 ${
+        className={`fixed inset-y-0 right-0 w-full max-w-md bg-white dark:bg-[#050505] border-l border-neutral-200 dark:border-white/15 shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-out z-10 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Header Drawer: Judul "GUESTBOOK", Jumlah Pesan, & Tombol Close (X) */}
-        <div className="p-5 border-b-2 border-black dark:border-neutral-800 flex items-center justify-between bg-neutral-50 dark:bg-neutral-900 shrink-0 transition-colors">
+        {/* Header */}
+        <div className="p-5 border-b border-neutral-200 dark:border-white/15 flex items-center justify-between bg-neutral-50 dark:bg-[#0F0F11] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center transition-colors">
+            <div className="w-9 h-9 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center">
               <MessageSquare className="w-4 h-4" />
             </div>
-            <h2
-              id="guestbook-drawer-title"
-              className="text-xl font-black uppercase text-black dark:text-white tracking-tight transition-colors"
-            >
-              GUESTBOOK
-            </h2>
-            <span className="px-2.5 py-0.5 rounded-full border border-black dark:border-neutral-700 bg-white dark:bg-neutral-950 text-xs font-mono font-bold text-black dark:text-white shadow-hard-sm dark:shadow-hard-sm-white transition-colors">
-              {entries.length} {isId ? 'pesan' : 'signatures'}
-            </span>
+            <div>
+              <h2
+                id="guestbook-drawer-title"
+                className="font-display text-lg font-black uppercase text-black dark:text-white tracking-tight"
+              >
+                {isId ? 'BUKU TAMU' : 'GUESTBOOK'}
+              </h2>
+              <span className="font-mono text-[11px] text-neutral-600 dark:text-neutral-400">
+                // {entries.length} {isId ? 'catatan tercatat' : 'recorded notes'}
+              </span>
+            </div>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-full border border-black dark:border-neutral-700 bg-white dark:bg-neutral-900 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black flex items-center justify-center transition-colors shadow-hard-sm dark:shadow-hard-sm-white cursor-pointer"
-            title="Tutup (ESC)"
+            aria-label={isId ? 'Tutup Buku Tamu' : 'Close Guestbook'}
+            className="w-10 h-10 rounded-full border border-neutral-300 dark:border-white/15 bg-white dark:bg-[#141418] text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black flex items-center justify-center transition-colors cursor-pointer"
+            title="Close (ESC)"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Bagian Auth & Form */}
-        <div className="p-4 bg-neutral-100/70 dark:bg-neutral-900/70 border-b-2 border-black dark:border-neutral-800 shrink-0 transition-colors">
+        {/* Auth Controls */}
+        <div className="p-4 bg-neutral-100/70 dark:bg-[#0F0F11]/80 border-b border-neutral-200 dark:border-white/10 shrink-0">
           {!currentUser ? (
             <div>
-              <p className="text-[11px] font-mono font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider mb-2.5">
+              <p className="text-[11px] font-mono font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-2.5">
                 {isId ? 'Masuk untuk menulis pesan di buku tamu:' : 'Sign in to sign the guestbook:'}
               </p>
-              {/* Tombol Pilihan Login: GitHub */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleSocialSignIn('github')}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-mono font-bold bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 border border-black dark:border-white shadow-hard-sm dark:shadow-hard-sm-white transition-all cursor-pointer"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                  </svg>
-                  <span>{isId ? 'Masuk dengan GitHub' : 'Sign in with GitHub'}</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => handleSocialSignIn('github')}
+                className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 rounded-full text-xs font-mono font-bold bg-black dark:bg-white text-white dark:text-black hover:opacity-90 transition-opacity cursor-pointer"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+                <span>{isId ? 'Masuk dengan GitHub' : 'Sign in with GitHub'}</span>
+              </button>
             </div>
           ) : (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 <span className="text-xs font-mono font-bold text-black dark:text-white">
-                  {isId ? 'Sebagai:' : 'Signed in as:'} <span className="underline font-black">{currentUser.name}</span>
+                  {isId ? 'Aktif:' : 'Signed in:'} <span className="underline">{currentUser.name}</span>
                 </span>
               </div>
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="inline-flex items-center gap-1 text-[11px] font-mono text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
+                className="inline-flex items-center gap-1 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
               >
-                <LogOut className="w-3 h-3" />
+                <LogOut className="w-3.5 h-3.5" />
                 <span>{isId ? 'Keluar' : 'Sign out'}</span>
               </button>
             </div>
           )}
         </div>
 
-        {/* List Komentar: Daftar Chat / Pesan Pengunjung Lengkap */}
+        {/* Entries List with Loading, Error, and Empty States (R-27) */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {entries.length === 0 ? (
+          {isLoadingEntries ? (
+            <div className="py-16 text-center font-mono text-xs text-neutral-600 dark:text-neutral-400 flex flex-col items-center gap-3">
+              <Loader2 className="w-6 h-6 animate-spin text-amber-500" />
+              <span>{isId ? 'Memuat catatan buku tamu...' : 'Loading guestbook entries...'}</span>
+            </div>
+          ) : loadError ? (
+            <div className="p-5 rounded-2xl border border-rose-500/40 bg-rose-50 dark:bg-rose-950/20 text-center space-y-3">
+              <AlertCircle className="w-6 h-6 text-rose-500 mx-auto" />
+              <p className="text-xs font-mono text-rose-700 dark:text-rose-300">{loadError}</p>
+              <button
+                type="button"
+                onClick={fetchEntries}
+                className="px-4 py-2 rounded-full bg-black text-white dark:bg-white dark:text-black font-mono text-xs font-bold uppercase cursor-pointer"
+              >
+                {isId ? 'Coba Lagi' : 'Retry'}
+              </button>
+            </div>
+          ) : entries.length === 0 ? (
             <div className="text-center py-16 px-4">
-              <div className="w-12 h-12 rounded-2xl border-2 border-black dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center mx-auto mb-3 shadow-hard-sm dark:shadow-hard-sm-white transition-colors">
+              <div className="w-12 h-12 rounded-2xl border border-neutral-300 dark:border-white/15 bg-neutral-100 dark:bg-[#0F0F11] flex items-center justify-center mx-auto mb-3">
                 <MessageSquare className="w-6 h-6 text-black dark:text-white" />
               </div>
-              <p className="font-mono font-bold text-sm text-black dark:text-white mb-1 transition-colors">
-                {isId ? 'Buku Tamu Masih Kosong' : 'Guestbook is Clean'}
+              <p className="font-display font-bold text-base text-black dark:text-white mb-1">
+                {isId ? 'Buku Tamu Masih Kosong' : 'No Guestbook Notes Yet'}
               </p>
-              <p className="text-xs font-mono text-neutral-500 dark:text-neutral-400 max-w-xs mx-auto leading-relaxed transition-colors">
-                {data?.emptyText || (isId ? 'Belum ada catatan pengunjung. Masuk menggunakan GitHub atau Google untuk meninggalkan pesan pertama!' : 'No visitor notes recorded yet. Sign in to leave the very first note.')}
+              <p className="text-xs font-mono text-neutral-600 dark:text-neutral-400 max-w-xs mx-auto leading-relaxed">
+                {data?.emptyText ||
+                  (isId
+                    ? 'Belum ada catatan pengunjung. Masuk dengan GitHub di atas untuk menulis pesan pertama.'
+                    : 'No visitor notes recorded yet. Sign in with GitHub above to leave the first note.')}
               </p>
             </div>
           ) : (
             entries.map((entry) => (
               <div key={entry.id} className="space-y-2">
-                {/* Visitor Message Bubble */}
                 <div className="flex items-start gap-3">
-                  <img
-                    src={entry.avatar}
-                    alt={entry.name}
-                    className="w-8 h-8 rounded-full object-cover border border-black dark:border-neutral-700 shrink-0 shadow-hard-sm dark:shadow-hard-sm-white"
-                  />
+                  {/* Honest initial-based avatar fallback instead of stock photo (R-23) */}
+                  {entry.avatar ? (
+                    <img
+                      src={entry.avatar}
+                      alt={entry.name}
+                      className="w-8 h-8 rounded-full object-cover border border-neutral-300 dark:border-white/20 shrink-0"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-[#17171A] border border-neutral-300 dark:border-white/15 flex items-center justify-center font-mono text-[11px] font-bold text-black dark:text-white shrink-0">
+                      {getInitials(entry.name)}
+                    </div>
+                  )}
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-bold text-black dark:text-white">{entry.name}</span>
                       {entry.handle && (
-                        <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400">{entry.handle}</span>
+                        <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-400">
+                          {entry.handle}
+                        </span>
                       )}
-                      <span className="text-[10px] font-mono text-neutral-400 ml-auto">{entry.date}</span>
+                      <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-400 ml-auto">
+                        {entry.date}
+                      </span>
                     </div>
 
-                    {/* Balon Pesan Monokrom */}
-                    <div className="p-3.5 rounded-2xl rounded-tl-sm bg-neutral-100 dark:bg-neutral-900 text-xs font-mono text-black dark:text-neutral-100 leading-relaxed border border-black dark:border-neutral-700 shadow-hard-sm dark:shadow-hard-sm-white transition-colors">
+                    <div className="p-3.5 rounded-2xl rounded-tl-sm bg-neutral-100 dark:bg-[#0F0F11] text-xs font-mono text-black dark:text-neutral-100 leading-relaxed border border-neutral-200 dark:border-white/10">
                       {entry.message}
                     </div>
                   </div>
                 </div>
-
-                {/* Balon Balasan Developer (Jika Ada) */}
-                {entry.replies &&
-                  entry.replies.map((reply) => (
-                    <div key={reply.id} className="pl-11 flex items-start gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white flex items-center justify-center text-[10px] font-black shrink-0 shadow-hard-sm dark:shadow-hard-sm-white transition-colors">
-                        MP
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[11px] font-black text-black dark:text-white">{reply.name}</span>
-                          <span className="text-[9px] bg-black dark:bg-white text-white dark:text-black px-1.5 py-0.5 rounded font-mono font-bold">
-                            DEV
-                          </span>
-                          <span className="text-[9px] font-mono text-neutral-400 ml-auto">{reply.date}</span>
-                        </div>
-                        <div className="p-3 rounded-2xl rounded-tl-sm bg-neutral-950 dark:bg-neutral-800 text-white text-xs font-mono leading-relaxed border border-black dark:border-neutral-700 shadow-hard-sm dark:shadow-hard-sm-white transition-colors">
-                          {reply.message}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
               </div>
             ))
           )}
         </div>
 
-        {/* Form Input Pesan Singkat */}
-        <div className="p-4 border-t-2 border-black dark:border-neutral-800 bg-white dark:bg-neutral-950 shrink-0 space-y-2 transition-colors">
+        {/* Footer Form */}
+        <div className="p-4 border-t border-neutral-200 dark:border-white/15 bg-white dark:bg-[#050505] shrink-0 space-y-2">
           {feedbackSuccess && (
-            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-bold flex items-center gap-2">
+            <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/50 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-bold flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>{isId ? 'Pesan berhasil diposting!' : 'Message posted successfully!'}</span>
+              <span>{isId ? 'Pesan berhasil ditambahkan!' : 'Note posted!'}</span>
             </div>
           )}
 
           {!currentUser ? (
-            <div className="flex items-center justify-between p-3 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800">
-              <span className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
-                {isId ? 'Masuk dengan GitHub untuk menulis pesan:' : 'Sign in with GitHub to write a note:'}
+            <div className="flex items-center justify-between p-3 rounded-2xl bg-neutral-100 dark:bg-[#0F0F11] border border-neutral-200 dark:border-white/10">
+              <span className="text-xs text-neutral-700 dark:text-neutral-300 font-medium">
+                {isId ? 'Masuk untuk menulis catatan:' : 'Sign in to leave a note:'}
               </span>
               <button
                 type="button"
                 onClick={() => handleSocialSignIn('github')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white shadow-hard-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 min-h-[36px] rounded-full text-xs font-mono font-bold bg-black dark:bg-white text-white dark:text-black cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                </svg>
                 <span>{isId ? 'Masuk' : 'Sign in'}</span>
               </button>
             </div>
@@ -467,17 +488,18 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
                   required
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
+                  aria-label={isId ? 'Pesan buku tamu' : 'Guestbook message'}
                   placeholder={
                     isId
                       ? `Tulis pesan sebagai ${currentUser.name}...`
-                      : `Write a message as ${currentUser.name}...`
+                      : `Write a note as ${currentUser.name}...`
                   }
-                  className="flex-1 px-4 py-2.5 text-xs font-mono rounded-full border border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-colors"
+                  className="flex-1 px-4 min-h-[44px] text-xs font-mono rounded-full border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-[#0F0F11] text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting || !inputMessage.trim()}
-                  className="px-5 py-2.5 bg-black dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:opacity-50 text-white dark:text-black text-xs font-mono font-bold rounded-full border border-black dark:border-white flex items-center gap-1.5 transition-all shadow-hard-sm dark:shadow-hard-sm-white cursor-pointer shrink-0"
+                  className="px-5 min-h-[44px] bg-black dark:bg-white hover:opacity-90 disabled:opacity-50 text-white dark:text-black text-xs font-mono font-bold rounded-full flex items-center gap-1.5 transition-opacity cursor-pointer shrink-0"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isId ? 'Kirim' : 'Post'}</span>
@@ -485,12 +507,6 @@ export const GuestbookDrawer: React.FC<GuestbookDrawerProps> = ({
               </div>
             </form>
           )}
-
-          <p className="text-[10px] text-center text-neutral-500 dark:text-neutral-400 font-mono">
-            {isId
-              ? 'Terhubung dengan real-time database via Supabase'
-              : 'Connected with real-time database via Supabase client'}
-          </p>
         </div>
       </div>
     </div>,
